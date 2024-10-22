@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sidebar con Submenús Independientes</title>
+        <script src="sidebar.js" defer></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-900 text-white">
+        <!-- Overlay -->
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden"></div>
+        <!-- Header fijo -->
+        <header class="fixed top-0 left-0 w-full bg-red-800 p-4 flex justify-between items-center z-50">
+            <h1 class="text-xl font-bold">Mi Aplicación</h1>
+            <button id="menu-btn" class="lg:hidden">
+                <svg
+                    id="hamburger-icon"
+                    class="w-8 h-8 block"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+                <svg
+                    id="close-icon"
+                    class="w-8 h-8 hidden"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </header>
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-gray-800 lg:translate-x-0 -translate-x-full transition-transform duration-300 z-40 p-6">
+            <nav class="mt-16">
+                <ul class="space-y-4">
+                    <li>
+                        <a href="#" class="hover:text-red-500">Inicio</a>
+                    </li>
+                    <!-- Submenú Servicios -->
+                    <li>
+                        <button class="submenu-btn flex items-center justify-between w-full text-left hover:text-red-500">
+                            Servicios
+                            <svg
+                                class="submenu-icon w-5 h-5 transition-transform duration-300"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <ul class="submenu hidden pl-4 space-y-2 mt-2">
+                            <li>
+                                <a href="#" class="hover:text-red-500">Servicio 1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-red-500">Servicio 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Submenú Nosotros -->
+                    <li>
+                        <button class="submenu-btn flex items-center justify-between w-full text-left hover:text-red-500">
+                            Nosotros
+                            <svg
+                                class="submenu-icon w-5 h-5 transition-transform duration-300"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <ul class="submenu hidden pl-4 space-y-2 mt-2">
+                            <li>
+                                <a href="#" class="hover:text-red-500">Equipo</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-red-500">Historia</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:text-red-500">Contacto</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- Contenido Principal -->
+        <main class="lg:ml-64 p-6 mt-20">
+            <section>
+                <h2 class="text-3xl font-semibold mb-4">Bienvenido a Mi Aplicación</h2>
+                <p class="text-lg">Este es el contenido principal. Asegúrate de que el menú sea cómodo de usar en todos los dispositivos.</p>
+            </section>
+        </main>
+    </body>
+</html>
+<script>
+   const menuBtn = document.getElementById('menu-btn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const hamburgerIcon = document.getElementById('hamburger-icon');
+const closeIcon = document.getElementById('close-icon');
+const submenuBtns = document.querySelectorAll('.submenu-btn');
+
+// Alternar el sidebar y los íconos del botón de menú
+menuBtn.addEventListener('click', () => {
+  const isOpen = !sidebar.classList.contains('-translate-x-full');
+
+  sidebar.classList.toggle('-translate-x-full', isOpen);
+  sidebar.classList.toggle('translate-x-0', !isOpen);
+  overlay.classList.toggle('hidden', isOpen);
+
+  hamburgerIcon.classList.toggle('hidden', !isOpen);
+  closeIcon.classList.toggle('hidden', isOpen);
+});
+
+// Cerrar el sidebar al hacer clic en el overlay
+overlay.addEventListener('click', () => {
+  sidebar.classList.add('-translate-x-full');
+  sidebar.classList.remove('translate-x-0');
+  overlay.classList.add('hidden');
+
+  hamburgerIcon.classList.remove('hidden');
+  closeIcon.classList.add('hidden');
+});
+
+// Alternar submenús de forma independiente
+submenuBtns.forEach((btn) => {
+  btn.addEventListener('click', (event) => {
+    const submenu = btn.nextElementSibling;
+    const icon = btn.querySelector('.submenu-icon');
+
+    // Verificar si el submenú ya está abierto
+    const isOpen = !submenu.classList.contains('hidden');
+
+    // Cerrar todos los submenús e íconos rotados
+    submenuBtns.forEach((otherBtn) => {
+      const otherSubmenu = otherBtn.nextElementSibling;
+      const otherIcon = otherBtn.querySelector('.submenu-icon');
+
+      otherSubmenu.classList.add('hidden'); // Ocultar todos los submenús
+      otherIcon.classList.remove('rotate-180'); // Restaurar todos los íconos
+    });
+
+    // Si el submenú no estaba abierto, abrirlo y rotar su ícono
+    if (!isOpen) {
+      submenu.classList.remove('hidden');
+      icon.classList.add('rotate-180');
+    }
+  });
+});
+</script>

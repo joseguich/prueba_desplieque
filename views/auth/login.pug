@@ -1,0 +1,32 @@
+extends ../layouts/index
+
+block contenido
+   div(class="max-w-sm md:max-w-xl mx-auto flex flex-col mt-16 md:mt-40")
+    h1(class="text-center text-white text-xl  md:text-3xl font-bold border-red-300 cssanimation hu__hu__")=page
+    if errores 
+      div(id="errores" class="text-center rounded-md mt-10")
+         each error in errores 
+            p(class="text-white bg-red-600 my-2 text-center text-sm md:text-lg py-2 rounded-lg")=error.msg
+
+
+    div(class="shadow-2xl rounded-md w-full px-2 mt-10")
+      form(action="/auth/login" method="POST" class="space-y-2")
+         input(type="hidden" name="_csrf" value=csrfToken)
+         div
+            label(for="identificar" class="block text-gray-50 text-sm md:text-xl py-5 font-bold") Email / Usuario 
+            input(type="text" id="identificar" name="identificar" class="w-full mb-2 p-2 bg-gray-50 outline-none placeholder-gray-400  border focus:border-red-300 rounded-lg" placeholder="Email o Usuario" value=user ? user.identificar : '') 
+         div
+            label(for="password" class="block text-gray-50 text-sm md:text-xl my-2 font-bold") Contraseña 
+            input(type="password" name="password" id="password" class="w-full mb-2 p-2 bg-gray-50 border focus:border-red-300 outline-none placeholder-gray-400 focus:bg-gray-50 rounded-lg" placeholder="Contraseña" )
+         
+         div 
+            a(href="#" class="flex justify-end text-gray-400 hover:text-white hover:scale-95 transition-all duration-300 cursor-pointer font-bold") ¿Olvidaste tu contraseña?
+
+         div(class="flex justify-center text-center py-5 ")
+            button(type="submit" class="flex justify-center items-center cursor-pointer bg-red-700 hover:bg-gray-700 text-white text-sm md:text-xl p-2 w-72 rounded-lg shadow-lg hover:shadow-red-700 hover:scale-90 transition-all duration-300 ") Iniciar Sesión
+               i(class='bx bx-send text-white pl-2')
+               
+        
+      
+
+    
