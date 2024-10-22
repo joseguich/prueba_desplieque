@@ -1,24 +1,28 @@
 doctype html
 html(lang="en")
-   head
-      meta(charset="UTF-8")
-      meta(name="viewport" content="width=device-width, initial-scale=1.0")
-      title MicroTech
-      block styles
-      link( rel="preconnect" href="https://fonts.googleapis.com")
-      link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
-      link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
-   rel="stylesheet")
-      script(src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js")
-      link(href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css" rel="stylesheet")
-      link(rel="stylesheet" href="/css/app.css")
-      link(rel="stylesheet" href="/css/styles.css")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title MicroTech
+    block styles
+    link( rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
+  rel="stylesheet")
+    script(src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js")
+    link(href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css" rel="stylesheet")
+    link(rel="stylesheet" href="/css/app.css")
+    link(rel="stylesheet" href="/css/styles.css")
 
-   body(class="h-screen font-[Poppins] bg-gradient-to-t from-[#ededed] to-[#dfd7d7e2]")
-      include includes/header-admin
-      main(class="container mx-auto mt-10")
-         block content
+  body(class="font-[Poppins]")
+    div(id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden")
+
+    include includes/header-admin
+    include includes/sidebar-admin
+    main(class="lg:ml-64 p-6 mt-32")
+      block content
 
 
-      block scripts
-         <script src="https://kit.fontawesome.com/0558074f37.js" crossorigin="anonymous"></script>
+    block scripts
+      script(src="https://kit.fontawesome.com/0558074f37.js" crossorigin="anonymous")
+      script(src="/js/sidebar.js")

@@ -3,7 +3,7 @@ import path from "path";
 export default {
   mode: "development",
   entry: {
-    desplegable: "./src/js/desplegable.js",
+    sidebar: "./src/js/sidebar.js",
     setTimeout: "./src/js/setTimeout.js",
   },
   output: {

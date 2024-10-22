@@ -10,13 +10,13 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/setTimeout.js":
-/*!******************************!*\
-  !*** ./src/js/setTimeout.js ***!
-  \******************************/
+/***/ "./src/js/sidebar.js":
+/*!***************************!*\
+  !*** ./src/js/sidebar.js ***!
+  \***************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.querySelector(\"#errores\");\r\nerrores.classList.add(\"animate__animated\", \"animate__fadeInDown\");\r\n\r\nsetTimeout(\r\n  () => {\r\n    errores.classList.add(\"hidden\");\r\n  },\r\n  5000,\r\n  setTimeout(() => {\r\n    errores.classList.add(\"animate__fadeOut\");\r\n  }, 4000)\r\n);\r\n\n\n//# sourceURL=webpack://microtech/./src/js/setTimeout.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst menuBtn = document.querySelector(\"#menu-btn\");\r\nconst sidebar = document.querySelector(\"#sidebar\");\r\nconst overlay = document.querySelector(\"#overlay\");\r\nconst hamburgerIcon = document.querySelector(\"#hamburger-icon\");\r\nconst closeIcon = document.querySelector(\"#close-icon\");\r\nconst subMenuBtns = document.querySelectorAll(\".submenu-btn\");\r\n\r\nmenuBtn.addEventListener(\"click\", () => {\r\n  const isOpen = !sidebar.classList.contains(\"-translate-x-full\");\r\n  sidebar.classList.toggle(\"-translate-x-full\", isOpen);\r\n  sidebar.classList.toggle(\"-translate-x-0\", !isOpen);\r\n  overlay.classList.toggle(\"hidden\", isOpen);\r\n\r\n  hamburgerIcon.classList.toggle(\"hidden\", !isOpen);\r\n  closeIcon.classList.toggle(\"hidden\", isOpen);\r\n});\r\n\r\noverlay.addEventListener(\"click\", () => {\r\n  sidebar.classList.add(\"-translate-x-full\");\r\n  sidebar.classList.remove(\"-translate-x-0\");\r\n  overlay.classList.add(\"hidden\");\r\n\r\n  hamburgerIcon.classList.remove(\"hidden\");\r\n  closeIcon.classList.add(\"hidden\");\r\n});\r\n\n\n//# sourceURL=webpack://microtech/./src/js/sidebar.js?");
 
 /***/ })
 
@@ -43,7 +43,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.quer
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/js/setTimeout.js"](0, __webpack_exports__, __webpack_require__);
+/******/ 	__webpack_modules__["./src/js/sidebar.js"](0, __webpack_exports__, __webpack_require__);
 /******/ 	
 /******/ })()
 ;
