@@ -13,7 +13,6 @@ const db = new Sequelize(
     port: process.env.DB_PORT,
     dialect: "mysql",
     timestamps: true,
-    logging: console.log,
 
     pool: {
       max: 5,

@@ -23,3 +23,27 @@ overlay.addEventListener("click", () => {
   hamburgerIcon.classList.remove("hidden");
   closeIcon.classList.add("hidden");
 });
+
+subMenuBtns.forEach((btn) => {
+  btn.addEventListener("click", function (e) {
+    const submenu = this.nextElementSibling;
+    const icon = this.querySelector(".submenu-icon");
+
+    // Verficar si el Submenú ya esta abierto
+    const isOpen = !submenu.classList.contains("hidden");
+
+    //Cerrar todos los submeús e iconos rotados
+    subMenuBtns.forEach((otherBtn) => {
+      const otherSubmenu = otherBtn.nextElementSibling;
+      const otherIcon = otherBtn.querySelector(".submenu-icon");
+
+      otherSubmenu.classList.add("hidden");
+      otherIcon.classList.remove("rotate-180");
+    });
+
+    if (!isOpen) {
+      submenu.classList.remove("hidden");
+      icon.classList.add("rotate-180");
+    }
+  });
+});

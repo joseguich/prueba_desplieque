@@ -1,7 +1,7 @@
-import { validationResult } from "express-validator";
-import bcrypt from "bcrypt";
+import { check, validationResult } from "express-validator";
+import bcrypt, { genSalt } from "bcrypt";
 import User from "../models/User.js";
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 import { generatorId, generatorJwt } from "../helpers/token.js";
 const viewLogin = (req, res) => {
   res.render("auth/login", {
@@ -100,6 +100,9 @@ const forgetPassword = async (req, res) => {
       page: "Olvidaste Contraseña",
       csrfToken: req.csrfToken(),
       errores: resultado.array(),
+      users: {
+        email,
+      },
     });
   }
 
@@ -111,6 +114,9 @@ const forgetPassword = async (req, res) => {
       page: "Olvidaste Contraseña",
       csrfToken: req.csrfToken(),
       errores: [{ msg: "El email no existe" }],
+      users: {
+        email,
+      },
     });
   }
 
@@ -134,6 +140,49 @@ const viewResetPassword = async (req, res) => {
   res.render("auth/reset-password", {
     page: "Retablecer Contraseña",
     csrfToken: req.csrfToken(),
+    user,
+  });
+};
+
+const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+  await check("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Los Campo contraseña es obligatorio")
+    .isLength({ min: 6 })
+    .withMessage("Minimo 6 caracteres")
+    .run(req);
+  await check("confirm_password")
+    .trim()
+    .equals(password)
+    .withMessage("Contraseña no coincide")
+    .run(req);
+
+  const result = validationResult(req);
+  const user = await User.findOne({ where: { token } });
+
+  if (!result.isEmpty()) {
+    return res.render("auth/reset-password", {
+      page: "Retablecer Contraseña",
+      csrfToken: req.csrfToken(),
+      errores: result.array(),
+      user,
+    });
+  }
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(password, salt);
+
+  user.password = hashPassword;
+  user.token = null;
+
+  await user.save();
+
+  res.render("template/mensaje", {
+    page: "Recuperación de contraseña",
+    mensaje: "Contraseña cambiada correctamente",
+    success: true,
   });
 };
 
@@ -143,4 +192,5 @@ export {
   viewForgetPassword,
   forgetPassword,
   viewResetPassword,
+  resetPassword,
 };

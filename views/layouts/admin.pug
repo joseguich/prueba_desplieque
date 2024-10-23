@@ -3,7 +3,7 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    title MicroTech
+    title MicroTech #{page}
     block styles
     link( rel="preconnect" href="https://fonts.googleapis.com")
     link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
@@ -14,7 +14,7 @@ html(lang="en")
     link(rel="stylesheet" href="/css/app.css")
     link(rel="stylesheet" href="/css/styles.css")
 
-  body(class="font-[Poppins]")
+  body(class="font-[Poppins] bg-gray-900")
     div(id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden")
     include includes/header-admin
     include includes/sidebar-admin

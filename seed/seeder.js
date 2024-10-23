@@ -1,6 +1,6 @@
 import { exit, argv } from "node:process";
 import db from "../config/db.js";
-import User from "../models/User.js";
+import { User } from "../models/index.js";
 import users from "./user.js";
 
 //Crear los datos

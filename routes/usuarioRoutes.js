@@ -6,6 +6,7 @@ import {
   viewForgetPassword,
   forgetPassword,
   viewResetPassword,
+  resetPassword,
 } from "../controllers/authControllers.js";
 
 const routes = express();
@@ -28,5 +29,6 @@ routes.post(
 );
 
 routes.get("/reset-password/:token", viewResetPassword);
+routes.post("/reset-password/:token", resetPassword);
 
 export default routes;

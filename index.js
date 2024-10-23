@@ -3,6 +3,7 @@ import csrf from "csurf";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/usuarioRoutes.js";
 import repairsRoutes from "./routes/repairsRoutes.js";
+import clientRoutes from "./routes/clientRoutes.js";
 import db from "./config/db.js";
 
 const app = express();
@@ -38,7 +39,7 @@ app.set("view engine", ".pug");
 app.set("views", "./views");
 
 app.use("/auth", userRoutes);
-app.use("/", repairsRoutes);
+app.use("/", repairsRoutes, clientRoutes);
 
 app.listen(PORT, () => {
   console.log(`Corriendo en el servidor: http://localhost:${PORT}`);
