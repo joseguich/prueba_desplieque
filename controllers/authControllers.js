@@ -2,7 +2,7 @@ import { validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
 import { Op } from "sequelize";
-import { generatorJwt } from "../helpers/token.js";
+import { generatorId, generatorJwt } from "../helpers/token.js";
 const viewLogin = (req, res) => {
   res.render("auth/login", {
     page: "Inicio de Sesión",
@@ -69,7 +69,6 @@ const authLogin = async (req, res) => {
     });
   }
 
-  // console.log(user);
   const token = generatorJwt({
     id: user.id,
     user_name: user.user_name,
@@ -84,4 +83,64 @@ const authLogin = async (req, res) => {
     .redirect("/home-repairs");
 };
 
-export { viewLogin, authLogin };
+const viewForgetPassword = (req, res) => {
+  res.render("auth/forget-password", {
+    page: "Olvidaste Contraseña",
+    csrfToken: req.csrfToken(),
+  });
+};
+
+const forgetPassword = async (req, res) => {
+  const { email } = req.body;
+
+  //Validdar
+  const resultado = validationResult(req);
+  if (!resultado.isEmpty()) {
+    return res.render("auth/forget-password", {
+      page: "Olvidaste Contraseña",
+      csrfToken: req.csrfToken(),
+      errores: resultado.array(),
+    });
+  }
+
+  //Verificar si existe el usuario
+  const user = await User.findOne({ where: { email } });
+
+  if (!user) {
+    return res.render("auth/forget-password", {
+      page: "Olvidaste Contraseña",
+      csrfToken: req.csrfToken(),
+      errores: [{ msg: "El email no existe" }],
+    });
+  }
+
+  user.token = generatorId();
+  await user.save();
+
+  res.redirect(`/auth/reset-password/${user.token}`);
+};
+
+const viewResetPassword = async (req, res) => {
+  const { token } = req.params;
+
+  const user = await User.findOne({ where: { token } });
+  if (!user) {
+    return res.render("template/mensaje", {
+      page: "Error al retablecer la contraseña",
+      mensaje: "Hubo un error al retablecer la contraseña, intentalo de nuevo",
+    });
+  }
+
+  res.render("auth/reset-password", {
+    page: "Retablecer Contraseña",
+    csrfToken: req.csrfToken(),
+  });
+};
+
+export {
+  viewLogin,
+  authLogin,
+  viewForgetPassword,
+  forgetPassword,
+  viewResetPassword,
+};

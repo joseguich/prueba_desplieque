@@ -1,9 +1,13 @@
 import jwt from "jsonwebtoken";
 
-export const generatorJwt = (data) =>
+const generatorJwt = (data) =>
   jwt.sign(
     { id: data.id, user_name: data.user_name, name: data.name },
     "PalabrasssssssClaveSecret",
     { expiresIn: "24h" }
   );
-export default generatorJwt;
+
+const generatorId = () =>
+  Math.random().toString(32).substring(2) + Date.now().toString(32);
+
+export { generatorJwt, generatorId };

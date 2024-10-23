@@ -1,6 +1,12 @@
 import express from "express";
 import { body } from "express-validator";
-import { viewLogin, authLogin } from "../controllers/authControllers.js";
+import {
+  viewLogin,
+  authLogin,
+  viewForgetPassword,
+  forgetPassword,
+  viewResetPassword,
+} from "../controllers/authControllers.js";
 
 const routes = express();
 
@@ -11,5 +17,16 @@ routes.post(
   body("password").notEmpty().withMessage("Ingrese su contraseña"),
   authLogin
 );
+
+routes.get("/forget-password", viewForgetPassword);
+routes.post(
+  "/forget-password",
+
+  body("email").isEmail().withMessage("Email es obligatorio"),
+
+  forgetPassword
+);
+
+routes.get("/reset-password/:token", viewResetPassword);
 
 export default routes;
