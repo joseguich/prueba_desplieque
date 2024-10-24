@@ -5,6 +5,8 @@ export default {
   entry: {
     sidebar: "./src/js/sidebar.js",
     setTimeout: "./src/js/setTimeout.js",
+    formatPhone: "./src/js/formatPhone.js",
+    countTextArea: "./src/js/countTextArea.js",
   },
   output: {
     filename: "[name].js",

@@ -10,13 +10,13 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/setTimeout.js":
-/*!******************************!*\
-  !*** ./src/js/setTimeout.js ***!
-  \******************************/
+/***/ "./src/js/countTextArea.js":
+/*!*********************************!*\
+  !*** ./src/js/countTextArea.js ***!
+  \*********************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.querySelector(\"#errores\");\r\nerrores.classList.add(\"animate__animated\", \"animate__fadeInDown\");\r\n\r\nsetTimeout(\r\n  () => {\r\n    errores.classList.add(\"hidden\");\r\n  },\r\n  5000,\r\n  setTimeout(() => {\r\n    errores.classList.add(\"animate__fadeOut\");\r\n  }, 4000)\r\n);\r\n\n\n//# sourceURL=webpack://microtech/./src/js/setTimeout.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst textArea = document.querySelector(\"#address\");\r\nconst count = document.querySelector(\"#count\");\r\n\r\ntextArea.addEventListener(\"input\", (e) => {\r\n  if (!textArea.value.trim()) {\r\n    count.textContent = \"0 / 100\";\r\n    return;\r\n  }\r\n  const valueTextArea = textArea.value.length;\r\n\r\n  //Obtener el atributo maximo de caracteres\r\n  const maxLength = textArea.getAttribute(\"maxLength\");\r\n\r\n  count.textContent = `${valueTextArea} / ${maxLength}`;\r\n});\r\n\n\n//# sourceURL=webpack://microtech/./src/js/countTextArea.js?");
 
 /***/ })
 
@@ -43,7 +43,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.quer
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/js/setTimeout.js"](0, __webpack_exports__, __webpack_require__);
+/******/ 	__webpack_modules__["./src/js/countTextArea.js"](0, __webpack_exports__, __webpack_require__);
 /******/ 	
 /******/ })()
 ;

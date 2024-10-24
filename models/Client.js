@@ -16,6 +16,7 @@ const Clients = db.define("clients", {
     unique: true,
   },
   phone: { type: DataTypes.STRING(20), allowNull: false },
+
   address: DataTypes.TEXT,
 });
 

@@ -10,13 +10,13 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/setTimeout.js":
-/*!******************************!*\
-  !*** ./src/js/setTimeout.js ***!
-  \******************************/
+/***/ "./src/js/formatPhone.js":
+/*!*******************************!*\
+  !*** ./src/js/formatPhone.js ***!
+  \*******************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.querySelector(\"#errores\");\r\nerrores.classList.add(\"animate__animated\", \"animate__fadeInDown\");\r\n\r\nsetTimeout(\r\n  () => {\r\n    errores.classList.add(\"hidden\");\r\n  },\r\n  5000,\r\n  setTimeout(() => {\r\n    errores.classList.add(\"animate__fadeOut\");\r\n  }, 4000)\r\n);\r\n\n\n//# sourceURL=webpack://microtech/./src/js/setTimeout.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst phone = document.querySelector(\"#phone\");\r\n\r\nphone.addEventListener(\"input\", (e) => {\r\n  const input = e.target;\r\n  let number = input.value.replace(/\\D/g, \"\"); // Elimina caracteres no númericos\r\n\r\n  if (number.length > 3 && number.length <= 6) {\r\n    number = `(${number.slice(0, 3)}) ${number.slice(3)}`;\r\n  } else if (number.length > 6) {\r\n    number = `(${number.slice(0, 3)}) ${number.slice(3, 6)}-${number.slice(\r\n      6,\r\n      10\r\n    )}`;\r\n  }\r\n\r\n  input.value = number;\r\n});\r\n\n\n//# sourceURL=webpack://microtech/./src/js/formatPhone.js?");
 
 /***/ })
 
@@ -43,7 +43,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.quer
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/js/setTimeout.js"](0, __webpack_exports__, __webpack_require__);
+/******/ 	__webpack_modules__["./src/js/formatPhone.js"](0, __webpack_exports__, __webpack_require__);
 /******/ 	
 /******/ })()
 ;
