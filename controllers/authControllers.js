@@ -1,7 +1,7 @@
 import { check, validationResult } from "express-validator";
 import bcrypt, { genSalt } from "bcrypt";
 import User from "../models/User.js";
-import { Op, where } from "sequelize";
+import { Op } from "sequelize";
 import { generatorId, generatorJwt } from "../helpers/token.js";
 const viewLogin = (req, res) => {
   res.render("auth/login", {
