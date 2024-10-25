@@ -1,6 +1,5 @@
 import { check, validationResult } from "express-validator";
 import { Clients } from "../models/index.js";
-import { where } from "sequelize";
 
 const viewClient = (req, res) => {
   res.render("client/create", {
@@ -12,7 +11,6 @@ const viewClient = (req, res) => {
 
 const createClient = async (req, res) => {
   const { name, last_name, email, phone, address } = req.body;
-  console.log(req.query.id);
   await check("name")
     .trim()
     .notEmpty()
@@ -52,14 +50,14 @@ const createClient = async (req, res) => {
 
   const clients = await Clients.findOne({ where: { email } });
 
-  // if (!clients) {
-  //   return res.render("client/create", {
-  //     page: "Crear Cliente",
-  //     csrfToken: req.csrfToken(),
-  //     errors: { email: { msg: "El correo ya existe" } },
-  //     client: req.body,
-  //   });
-  // }
+  if (clients) {
+    return res.render("client/create", {
+      page: "Crear Cliente",
+      csrfToken: req.csrfToken(),
+      errors: { email: { msg: "El correo ya existe" } },
+      client: req.body,
+    });
+  }
 
   await Clients.create({
     name,

@@ -16,7 +16,7 @@
   \******************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.querySelector(\"#errores\");\r\nerrores.classList.add(\"animate__animated\", \"animate__fadeInDown\");\r\n\r\nsetTimeout(\r\n  () => {\r\n    errores.classList.add(\"hidden\");\r\n  },\r\n  5000,\r\n  setTimeout(() => {\r\n    errores.classList.add(\"animate__fadeOut\");\r\n  }, 4000)\r\n);\r\n\n\n//# sourceURL=webpack://microtech/./src/js/setTimeout.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.querySelector(\"#errores\");\nerrores.classList.add(\"animate__animated\", \"animate__fadeInDown\");\n\nsetTimeout(\n  () => {\n    errores.classList.add(\"hidden\");\n  },\n  5000,\n  setTimeout(() => {\n    errores.classList.add(\"animate__fadeOut\");\n  }, 4000)\n);\n\n\n//# sourceURL=webpack://microtech/./src/js/setTimeout.js?");
 
 /***/ })
 
