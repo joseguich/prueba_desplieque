@@ -131,9 +131,9 @@ const viewResetPassword = async (req, res) => {
 
   const user = await User.findOne({ where: { token } });
   if (!user) {
-    return res.render("template/mensaje", {
+    return res.render("template/message-index", {
       page: "Error al retablecer la contraseña",
-      mensaje: "Hubo un error al retablecer la contraseña, intentalo de nuevo",
+      message: "Hubo un error al retablecer la contraseña, intentalo de nuevo",
     });
   }
 
@@ -179,9 +179,9 @@ const resetPassword = async (req, res) => {
 
   await user.save();
 
-  res.render("template/mensaje", {
+  res.render("template/message-index", {
     page: "Recuperación de contraseña",
-    mensaje: "Contraseña cambiada correctamente",
+    message: "Contraseña cambiada correctamente",
     success: true,
   });
 };

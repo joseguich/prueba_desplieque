@@ -16,7 +16,7 @@
   \*******************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nconst phone = document.querySelector(\"#phone\");\n\nphone.addEventListener(\"input\", (e) => {\n  const input = e.target;\n  let number = input.value.replace(/\\D/g, \"\"); // Elimina caracteres no númericos\n\n  if (number.length > 3 && number.length <= 6) {\n    number = `(${number.slice(0, 3)}) ${number.slice(3)}`;\n  } else if (number.length > 6) {\n    number = `(${number.slice(0, 3)}) ${number.slice(3, 6)}-${number.slice(\n      6,\n      10\n    )}`;\n  }\n\n  input.value = number;\n});\n\n\n//# sourceURL=webpack://microtech/./src/js/formatPhone.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst phone = document.querySelector(\"#phone\");\r\n\r\nphone.addEventListener(\"input\", (e) => {\r\n  const input = e.target;\r\n  let number = input.value.replace(/\\D/g, \"\"); // Elimina caracteres no númericos\r\n\r\n  if (number.length > 3 && number.length <= 6) {\r\n    number = `(${number.slice(0, 3)}) ${number.slice(3)}`;\r\n  } else if (number.length > 6) {\r\n    number = `(${number.slice(0, 3)}) ${number.slice(3, 6)}-${number.slice(\r\n      6,\r\n      10\r\n    )}`;\r\n  }\r\n\r\n  input.value = number;\r\n});\r\n\n\n//# sourceURL=webpack://microtech/./src/js/formatPhone.js?");
 
 /***/ })
 

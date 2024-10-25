@@ -1,10 +1,19 @@
 import express from "express";
 import authRoutes from "../middleware/authRoutes.js";
-import { viewClient, createClient } from "../controllers/clientControllers.js";
+import {
+  viewClient,
+  createClient,
+  viewClientPanel,
+  viewClientEdit,
+  editClient,
+} from "../controllers/clientControllers.js";
 
 const routes = express();
 
 routes.get("/client/create", authRoutes, viewClient);
 routes.post("/client/create", authRoutes, createClient);
+routes.get("/client/panel", viewClientPanel);
+routes.get("/client/edit/:id", viewClientEdit);
+routes.post("/client/edit/:id", editClient);
 
 export default routes;

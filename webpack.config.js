@@ -7,6 +7,7 @@ export default {
     setTimeout: "./src/js/setTimeout.js",
     formatPhone: "./src/js/formatPhone.js",
     countTextArea: "./src/js/countTextArea.js",
+    sweetAlert: "./src/js/sweetAlert.js",
   },
   output: {
     filename: "[name].js",
