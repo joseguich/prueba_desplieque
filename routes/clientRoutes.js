@@ -12,8 +12,8 @@ const routes = express();
 
 routes.get("/client/create", authRoutes, viewClient);
 routes.post("/client/create", authRoutes, createClient);
-routes.get("/client/panel", viewClientPanel);
-routes.get("/client/edit/:id", viewClientEdit);
-routes.post("/client/edit/:id", editClient);
+routes.get("/client/panel", authRoutes, viewClientPanel);
+routes.get("/client/edit/:id", authRoutes, viewClientEdit);
+routes.post("/client/edit/:id", authRoutes, editClient);
 
 export default routes;

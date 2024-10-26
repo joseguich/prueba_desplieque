@@ -31,4 +31,8 @@ routes.post(
 routes.get("/reset-password/:token", viewResetPassword);
 routes.post("/reset-password/:token", resetPassword);
 
+routes.get("/logout", (req, res) => {
+  return res.clearCookie("_token").redirect("/auth/login");
+});
+
 export default routes;
