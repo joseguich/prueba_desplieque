@@ -5,6 +5,7 @@ import userRoutes from "./routes/usuarioRoutes.js";
 import repairsRoutes from "./routes/repairsRoutes.js";
 import clientRoutes from "./routes/clientRoutes.js";
 import db from "./config/db.js";
+import authRoutes from "./middleware/authRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
