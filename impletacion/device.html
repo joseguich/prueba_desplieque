@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registro de Nuevo Equipo</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-900 min-h-screen flex items-center justify-center p-6">
+        <div class="max-w-4xl mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-semibold text-center text-white mb-8">Registro de Nuevo Equipo</h1>
+            <form
+                action="/device/create"
+                method="POST"
+                enctype="multipart/form-data"
+                class="grid grid-rows-auto gap-6"
+            >
+                <input type="hidden" name="client_id" value="1">
+                <!-- Grid de dos columnas para los campos -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <!-- Selección de Cliente -->
+                    <div>
+                        <label for="client" class="block text-white mb-2 font-medium">Cliente</label>
+                        <select
+                            name="client"
+                            id="client"
+                            required
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
+                        >
+                            <option value="" disabled selected>Selecciona un cliente</option>
+                            <option value="1">Cliente 1</option>
+                            <option value="2">Cliente 2</option>
+                            <option value="3">Cliente 3</option>
+                        </select>
+                    </div>
+                    <!-- Selección de Marca -->
+                    <div>
+                        <label for="brand" class="block text-white mb-2 font-medium">Marca</label>
+                        <select
+                            name="brand"
+                            id="brand"
+                            required
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
+                        >
+                            <option value="" disabled selected>Selecciona una marca</option>
+                            <option value="samsung">Samsung</option>
+                            <option value="apple">Apple</option>
+                            <option value="lg">LG</option>
+                        </select>
+                    </div>
+                    <!-- Selección de Modelo -->
+                    <div>
+                        <label for="model" class="block text-white mb-2 font-medium">Modelo</label>
+                        <select
+                            name="model"
+                            id="model"
+                            required
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
+                        >
+                            <option value="" disabled selected>Selecciona un modelo</option>
+                            <option value="galaxy-s21">Galaxy S21</option>
+                            <option value="iphone-13">iPhone 13</option>
+                            <option value="lg-g8">LG G8</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Grid para Problema y Número de Serie -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Selección del Problema -->
+                    <div>
+                        <label for="issue" class="block text-white mb-2 font-medium">Problema</label>
+                        <select
+                            name="issue"
+                            id="issue"
+                            required
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
+                        >
+                            <option value="" disabled selected>Selecciona un problema</option>
+                            <option value="pantalla-rota">Pantalla Rota</option>
+                            <option value="bateria-danada">Batería Dañada</option>
+                            <option value="software">Problema de Software</option>
+                        </select>
+                    </div>
+                    <!-- Campo de Número de Serie -->
+                    <div>
+                        <label for="serial_number" class="block text-white mb-2 font-medium">Número de Serie</label>
+                        <input
+                            type="text"
+                            name="serial_number"
+                            id="serial_number"
+                            required
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
+                        >
+                    </div>
+                </div>
+                <!-- Subida de Imágenes -->
+                <div>
+                    <label for="images" class="block text-white mb-2 font-medium">Imágenes del Equipo</label>
+                    <input
+                        type="file"
+                        name="images"
+                        id="images"
+                        multiple
+                        class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
+                    >
+                </div>
+                <!-- Botones de Acción -->
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="window.location='/device/panel'" class="px-5 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-500 transition-all duration-300">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-500 transition-all duration-300">
+                        Registrar Equipo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

@@ -54,28 +54,35 @@ const createClient = async (req, res) => {
     });
   }
 
-  const clients = await Clients.findOne({ where: { email } });
+  //Validad si el correo ya existe, pero solo si es proporcionado
+  if (email) {
+    const clients = await Clients.findOne({ where: { email } });
 
-  //Validad que el correo exista
-  if (clients) {
-    return res.render("client/create", {
-      page: "Crear Cliente",
-      csrfToken: req.csrfToken(),
-      errors: { email: { msg: "El correo ya existe" } },
-      client: req.body,
-    });
+    //Validad que el correo exista
+    if (clients) {
+      return res.render("client/create", {
+        page: "Crear Cliente",
+        csrfToken: req.csrfToken(),
+        errors: { email: { msg: "El correo ya existe" } },
+        client: req.body,
+      });
+    }
   }
 
   await Clients.create({
     name,
     last_name,
-    email,
+    email: email || null, //Guardar como null si no se proporciona el email
     phone,
     address,
     user_id: req.user.id,
   });
 
-  res.redirect("/home-repairs");
+  res.render("template/message-admin", {
+    page: "Cliente creado",
+    message: "El cliente ha sido creado correctamente",
+    panel: true,
+  });
 };
 
 const viewClientPanel = async (req, res) => {
