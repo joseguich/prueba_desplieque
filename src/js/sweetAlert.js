@@ -1,7 +1,9 @@
 import Swal from "sweetalert2";
 const cancelarBtn = document.querySelector("#cancelar");
+// const
 
-const sweetAlert = (edit = "editando", cancel = "cancelar") => {
+// Sweet Alert editar
+const sweetAlertEdit = (edit = "editando", cancel = "cancelar") => {
   Swal.fire({
     title: "¿Estás seguro?",
     text: "Los cambios no guardados se perderán",
@@ -27,4 +29,22 @@ const sweetAlert = (edit = "editando", cancel = "cancelar") => {
   });
 };
 
-cancelarBtn.addEventListener("click", () => sweetAlert());
+const sweetAlertDelete = (clientId) => {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "Los cambios no guardados se perderán",
+    icon: "warning",
+    showCancelButton: true,
+    cancelButtonColor: "#3085d6",
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "No, cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+    }
+  });
+};
+
+cancelarBtn.addEventListener("click", () => sweetAlertEdit());
+
+function deleteClient(clientId) {}

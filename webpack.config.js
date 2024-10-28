@@ -8,6 +8,8 @@ export default {
     formatPhone: "./src/js/formatPhone.js",
     countTextArea: "./src/js/countTextArea.js",
     sweetAlert: "./src/js/sweetAlert.js",
+    spinner: "./src/js/spinner.js",
+    inputs: "./src/js/inputs.js",
   },
   output: {
     filename: "[name].js",

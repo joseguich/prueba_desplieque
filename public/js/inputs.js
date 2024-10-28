@@ -10,13 +10,13 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/setTimeout.js":
-/*!******************************!*\
-  !*** ./src/js/setTimeout.js ***!
-  \******************************/
+/***/ "./src/js/inputs.js":
+/*!**************************!*\
+  !*** ./src/js/inputs.js ***!
+  \**************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.querySelector(\"#errores\");\nerrores.classList.add(\"animate__animated\", \"animate__fadeInDown\");\n\nsetTimeout(\n  () => {\n    errores.classList.add(\"hidden\");\n  },\n  5000,\n  setTimeout(() => {\n    errores.classList.add(\"animate__fadeOut\");\n  }, 4000)\n);\n\n\n//# sourceURL=webpack://microtech/./src/js/setTimeout.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst search = document.querySelector(\"#search\");\n\nsearch.addEventListener(\"input\", () => {\n  if (search.value === \"\") {\n    window.location.href = \"/client/panel\";\n  }\n});\n\n\n//# sourceURL=webpack://microtech/./src/js/inputs.js?");
 
 /***/ })
 
@@ -43,7 +43,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.quer
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/js/setTimeout.js"](0, __webpack_exports__, __webpack_require__);
+/******/ 	__webpack_modules__["./src/js/inputs.js"](0, __webpack_exports__, __webpack_require__);
 /******/ 	
 /******/ })()
 ;

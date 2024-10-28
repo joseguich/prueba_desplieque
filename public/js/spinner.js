@@ -10,13 +10,13 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/setTimeout.js":
-/*!******************************!*\
-  !*** ./src/js/setTimeout.js ***!
-  \******************************/
+/***/ "./src/js/spinner.js":
+/*!***************************!*\
+  !*** ./src/js/spinner.js ***!
+  \***************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.querySelector(\"#errores\");\nerrores.classList.add(\"animate__animated\", \"animate__fadeInDown\");\n\nsetTimeout(\n  () => {\n    errores.classList.add(\"hidden\");\n  },\n  5000,\n  setTimeout(() => {\n    errores.classList.add(\"animate__fadeOut\");\n  }, 4000)\n);\n\n\n//# sourceURL=webpack://microtech/./src/js/setTimeout.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst spinner = document.querySelector(\"#loader\");\nconst pages = document.querySelectorAll(\"a[href*='page']\");\nconst loaders = document.querySelectorAll(\".loader\");\nconst form = document.querySelector(\"form\");\n\nfunction showloader() {\n  spinner.classList.remove(\"hidden\");\n}\n\nfunction hidenLoader() {\n  spinner.classList.add(\"hidden\");\n}\n\npages.forEach((link) => {\n  link.addEventListener(\"click\", () => {\n    showloader();\n  });\n});\nloaders.forEach((link) => {\n  link.addEventListener(\"click\", () => {\n    showloader();\n  });\n});\n\nform.addEventListener(\"submit\", () => {\n  showloader();\n});\n\nwindow.addEventListener(\"load\", () => {\n  hidenLoader();\n});\n\n\n//# sourceURL=webpack://microtech/./src/js/spinner.js?");
 
 /***/ })
 
@@ -43,7 +43,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nconst errores = document.quer
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/js/setTimeout.js"](0, __webpack_exports__, __webpack_require__);
+/******/ 	__webpack_modules__["./src/js/spinner.js"](0, __webpack_exports__, __webpack_require__);
 /******/ 	
 /******/ })()
 ;
