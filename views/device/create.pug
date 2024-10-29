@@ -2,27 +2,34 @@ extends ../layouts/admin
 
 block content
   div(class="max-w-4xl mx-auto bg-gray-800 p-8 rounded-lg shadow-lg")
-    h2(class="text-base md:text-2xl font-bold text-center text-white mb-8") Registro de Equipo
+    h2(class="text-base md:text-2xl font-bold text-center text-white mb-8")=page
     form(action="" method="" class="grid grid-rows-auto gap-6 ")
       div(class="grid grid-cols-1 md:grid-cols-3 gap-6")
         div 
           label(for="client_id" class="block text-white font-semibold mb-2") Cliente
           select(name="client_id" id="client_id" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600")
-            option(value="") Selecciona un cliente
+            option(value="") -Selecciona un cliente-
+            each client in clients
+              option(value=client.id)=`${client.name} ${client.last_name}`
         div 
-          label(for="brand_id" class="block text-white font-semibold mb-2") Marca Equipo
+          label(for="brand_id" class="block text-white font-semibold mb-2") Marca del Equipo
           select(name="brand_id" id="brand_id" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600")
-            option(value="") Selecciona una marca
+            option(value="") -Selecciona una marca-
         div 
-          label(for="model_id" class="block text-white font-semibold mb-2") Model Equipo
+          label(for="model_id" class="block text-white font-semibold mb-2") Modelo del Equipo
           select(name="model_id" id="model_id" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600")
-            option(value="") Selecciona un modelo
+            option(value="") -Selecciona un modelo-
 
       div(class="grid grid-cols-1 md:grid-cols-2 gap-6")
         div 
           label(for="issue_description" class="block text-white font-semibold mb-2") Falla del equipo
-          select(name="issue_description" id="issue_description" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600")
-            option(value="") Selecciona un Falla
+          select(name="issue_description" id="issue_description" class=" cursor-pointer w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600")
+            option(value="" class="text-gray-300") -Selecciona un Falla-
+            each category in categories
+              optgroup(label=category.name class="text-sm cursor-pointer optgroup")
+                each problem in category.problems
+                  option(value=problem.id class="hidden")=problem.description
+
         div 
           label(for="serial_number" class="block text-white font-semibold mb-2") Serial del equipo
           input(type="text" name="serial_number" id="serial_number" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600 " placeholder="Serial Ejemplo: 45NGFS88SE" )
@@ -39,3 +46,5 @@ block content
         button(type="button" id="cancelar-create" class="w-full md:w-3/6 cursor-pointer font-bold bg-red-600  hover:bg-red-800 text-white text-sm md:text-xl p-[7px] rounded-lg shadow-lg hover:shadow-gray-600 hover:scale-90 transition-all duration-300") Cancelar
 
         input(type="submit" class=" w-full md:w-3/6 cursor-pointer font-bold bg-gray-700 hover:bg-indigo-700 text-white text-sm md:text-xl rounded-lg shadow-lg hover:shadow-gray-700  hover:scale-90 p-[10px] transition-all duration-300" value="Ingresar Equipo")
+
+      //- pre.text-white=JSON.stringify(categories, null, 2)

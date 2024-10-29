@@ -1,8 +1,15 @@
 import { exit, argv } from "node:process";
 import db from "../config/db.js";
-import { User, Clients } from "../models/index.js";
+import {
+  User,
+  Clients,
+  CategoryFailure,
+  Problemphone,
+} from "../models/index.js";
 import users from "./user.js";
 import clients from "./clients.js";
+import categoryFailure from "./categoryFailure.js";
+import problemIphone from "./problemPhone.js";
 
 //Crear los datos
 const importarDatos = async () => {
@@ -15,6 +22,9 @@ const importarDatos = async () => {
 
     //Insertar los datos
     await Promise.all([User.bulkCreate(users), Clients.bulkCreate(clients)]);
+
+    await CategoryFailure.bulkCreate(categoryFailure);
+    await Problemphone.bulkCreate(problemIphone);
 
     console.log("Data creado correctamente");
     exit();
