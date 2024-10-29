@@ -44,10 +44,14 @@ document.addEventListener("DOMContentLoaded", function () {
         text: "Los cambios no guardados se perderán",
         icon: "warning",
         showCancelButton: true,
-        cancelButtonColor: "#3085d6",
-        confirmButtonColor: "#d33",
         confirmButtonText: "Sí, eliminar",
         cancelButtonText: "No, cancelar",
+        customClass: {
+          confirmButton:
+            "bg-gray-500 shadow-lg hover:shadow-blue-700  hover:bg-blue-800 hover:scale-95 transition-all duration-300 text-white md:text-xl text-sm rounded-lg ",
+          cancelButton:
+            "bg-red-500 shadow-lg hover:shadow-red-700  hover:bg-red-800 hover:scale-95 transition-all duration-300 text-white md:text-xl text-sm rounded-lg",
+        },
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire(
