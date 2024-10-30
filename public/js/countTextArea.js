@@ -16,7 +16,7 @@
   \*********************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nconst textArea = document.querySelector(\"#address\");\r\nconst count = document.querySelector(\"#count\");\r\n\r\ntextArea.addEventListener(\"input\", (e) => {\r\n  if (!textArea.value.trim()) {\r\n    count.textContent = \"0 / 100\";\r\n    return;\r\n  }\r\n  const valueTextArea = textArea.value.length;\r\n\r\n  //Obtener el atributo maximo de caracteres\r\n  const maxLength = textArea.getAttribute(\"maxLength\");\r\n\r\n  count.textContent = `${valueTextArea} / ${maxLength}`;\r\n});\r\n\n\n//# sourceURL=webpack://microtech/./src/js/countTextArea.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst textArea = document.querySelector(\"#address\");\nconst count = document.querySelector(\"#count\");\n\ntextArea.addEventListener(\"input\", (e) => {\n  if (!textArea.value.trim()) {\n    count.textContent = \"0 / 100\";\n    return;\n  }\n  const valueTextArea = textArea.value.length;\n\n  //Obtener el atributo maximo de caracteres\n  const maxLength = textArea.getAttribute(\"maxLength\");\n\n  count.textContent = `${valueTextArea} / ${maxLength}`;\n});\n\n\n//# sourceURL=webpack://microtech/./src/js/countTextArea.js?");
 
 /***/ })
 

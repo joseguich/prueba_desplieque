@@ -16,7 +16,7 @@
   \**************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nconst search = document.querySelector(\"#search\");\r\n\r\nsearch.addEventListener(\"input\", () => {\r\n  if (search.value === \"\") {\r\n    window.location.href = \"/client/panel\";\r\n  }\r\n});\r\n\n\n//# sourceURL=webpack://microtech/./src/js/inputs.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst search = document.querySelector(\"#search\");\n\nsearch.addEventListener(\"input\", () => {\n  if (search.value === \"\") {\n    window.location.href = \"/client/panel\";\n  }\n});\n\n\n//# sourceURL=webpack://microtech/./src/js/inputs.js?");
 
 /***/ })
 

@@ -1,11 +1,11 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 
-const Brand = db.define("brand", {
+const Models = db.define("model", {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
 });
 
-export default Brand;
+export default Models;

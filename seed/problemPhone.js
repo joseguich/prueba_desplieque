@@ -17,19 +17,19 @@ const problemIphone = [
   },
   {
     description: "Cámara frontal o trasera desenfocada",
-    category_id: 2,
+    category_id: 3,
   },
   {
     description: "Flash no funciona",
-    category_id: 2,
+    category_id: 3,
   },
   {
     description: "Fallo al grabar video",
-    category_id: 2,
+    category_id: 3,
   },
   {
     description: "Problemas al abrir la aplicación de cámara",
-    category_id: 2,
+    category_id: 3,
   },
 ];
 

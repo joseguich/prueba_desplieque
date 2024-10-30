@@ -10,7 +10,6 @@ export default {
     sweetAlert: "./src/js/sweetAlert.js",
     spinner: "./src/js/spinner.js",
     inputs: "./src/js/inputs.js",
-    optgroup: "./src/js/optgroup.js",
   },
   output: {
     filename: "[name].js",

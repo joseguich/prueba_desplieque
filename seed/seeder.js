@@ -5,11 +5,15 @@ import {
   Clients,
   CategoryFailure,
   Problemphone,
+  Brand,
+  Models,
 } from "../models/index.js";
 import users from "./user.js";
 import clients from "./clients.js";
 import categoryFailure from "./categoryFailure.js";
 import problemIphone from "./problemPhone.js";
+import brands from "./brand.js";
+import models from "./model.js";
 
 //Crear los datos
 const importarDatos = async () => {
@@ -21,7 +25,12 @@ const importarDatos = async () => {
     await db.sync();
 
     //Insertar los datos
-    await Promise.all([User.bulkCreate(users), Clients.bulkCreate(clients)]);
+    await Promise.all([
+      User.bulkCreate(users),
+      Clients.bulkCreate(clients),
+      Brand.bulkCreate(brands),
+      Models.bulkCreate(models),
+    ]);
 
     await CategoryFailure.bulkCreate(categoryFailure);
     await Problemphone.bulkCreate(problemIphone);
