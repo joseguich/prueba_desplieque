@@ -6,7 +6,10 @@ const Device = db.define("devices", {
     type: DataTypes.STRING(60),
     allowNull: false,
   },
-
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
   status: {
     type: DataTypes.ENUM(
       "Recibido",

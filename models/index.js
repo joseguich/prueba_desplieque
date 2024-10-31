@@ -18,6 +18,8 @@ Device.belongsTo(Clients, { foreignKey: "client_id" });
 Device.belongsTo(Brand, { foreignKey: "brand_id" });
 Device.belongsTo(Models, { foreignKey: "model_id" });
 
+Device.belongsTo(Problemphone, { foreignKey: "problem_id" });
+
 //Relacion de problema a categoria de la falla
 Problemphone.belongsTo(CategoryFailure, {
   foreignKey: "category_id",

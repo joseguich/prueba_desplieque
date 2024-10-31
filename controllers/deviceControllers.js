@@ -5,6 +5,7 @@ import {
   CategoryFailure,
   Brand,
   Models,
+  Device,
 } from "../models/index.js";
 const viewDevice = async (req, res) => {
   try {
@@ -33,20 +34,18 @@ const viewDevice = async (req, res) => {
       brands,
       models,
       csrfToken: req.csrfToken(),
+      device: {},
     });
   } catch (error) {
     console.log("Error al obtener los queries de la db", error);
   }
 };
-
 const createDevice = async (req, res) => {
-  const { client_id } = req.body;
   const [clients, brands, models] = await Promise.all([
-    Clients.findAll({ order: [["name", "ASC"]] }),
+    Clients.findAll(),
     Brand.findAll({ order: [["name", "ASC"]] }),
     Models.findAll({ order: [["name", "ASC"]] }),
   ]);
-  console.log(req.body.client_id);
 
   // Obtener las categorias de los problemas
   const categories = await CategoryFailure.findAll({
@@ -60,15 +59,25 @@ const createDevice = async (req, res) => {
     ],
   });
 
-  console.log(client_id);
-
   await check("client_id")
     .notEmpty()
-    .withMessage("Cliente es obligatorio")
+    .withMessage("Seleccione el cliente es obligatorio")
     .run(req);
   await check("brand_id")
     .notEmpty()
-    .withMessage("Marca del equipo es obligatoria")
+    .withMessage("Seleccione la marca obligatoria")
+    .run(req);
+  await check("model_id")
+    .notEmpty()
+    .withMessage("Seleccione el modelo es obligatorio")
+    .run(req);
+  await check("problem_id")
+    .notEmpty()
+    .withMessage("Seleccione la falla del equipo")
+    .run(req);
+  await check("serial_number")
+    .notEmpty()
+    .withMessage("Serial es obligatorio")
     .run(req);
 
   const result = validationResult(req);
@@ -82,11 +91,26 @@ const createDevice = async (req, res) => {
       categories,
       brands,
       models,
-      device: {
-        client_id,
-      },
+      device: req.body,
     });
   }
+  const {
+    client_id,
+    brand_id,
+    model_id,
+    problem_id,
+    serial_number,
+    description,
+  } = req.body;
+  await Device.create({
+    client_id,
+    brand_id,
+    model_id,
+    problem_id,
+    serial_number,
+    description,
+  });
+  res.json({ message: "Equipo registrado correctamente" });
 };
 
 export { viewDevice, createDevice };

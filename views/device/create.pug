@@ -11,7 +11,7 @@ block content
           select(name="client_id" id="client_id" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 text-sm focus:ring-red-600")
             option(value="") -Selecciona un cliente-
             each client in clients
-              option(value=client.id )=`${client.name} ${client.last_name}`
+              option(value=client.id selected=device.client_id ? client.id == device.client_id : false )=`${client.name} ${client.last_name}`
           if errors
             span(class="text-red-500 text-xs mx-2")=errors.client_id ? errors.client_id.msg : ""
         div 
@@ -19,30 +19,40 @@ block content
           select(name="brand_id" id="brand_id" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 text-sm focus:ring-red-600")
             option(value="") -Selecciona una marca-
             each brand in brands 
-              option(value= brand.id)=brand.name
+              option(value= brand.id selected=device.brand_id ? brand.id == device.brand_id : false)=brand.name
+          if errors
+            span(class="text-red-500 text-xs mx-2")=errors.brand_id ? errors.brand_id.msg : ""
         div 
           label(for="model_id" class="block text-white font-semibold mb-2") Modelo del Equipo
           select(name="model_id" id="model_id" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 text-sm focus:ring-red-600")
             option(value="") -Selecciona un modelo-
               each model in models 
-                option(value= model.id)=model.name
+                option(value= model.id selected=device.model_id ? model.id == device.model_id : false)=model.name
+          if errors
+            span(class="text-red-500 text-xs mx-2")=errors.model_id ? errors.model_id.msg : ""
 
       div(class="grid grid-cols-1 md:grid-cols-2 gap-6")
         div 
-          label(for="issue_description" class="block text-white font-semibold mb-2") Falla del equipo
-          select(name="issue_description" id="issue_description" class=" cursor-pointer w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 text-sm focus:ring-red-600")
+          label(for="problem_id" class="block text-white font-semibold mb-2") Falla del equipo
+          select(name="problem_id" id="problem_id" class=" cursor-pointer w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 text-sm focus:ring-red-600")
             option(value="" class="") -Selecciona un Falla-
             each category in categories
               optgroup(label=category.name class="text-sm cursor-pointer optgroup")
                 each problem in category.problems
-                  option(value=problem.id)=problem.description
+                  option(value=problem.id selected=device.problem_id ? problem.id == device.problem_id: false )=problem.description
+          if errors
+            span(class="text-red-500 text-xs mx-2")=errors.problem_id ? errors.problem_id.msg : ""
 
         div 
           label(for="serial_number" class="block text-white font-semibold mb-2") Serial del equipo
-          input(type="text" name="serial_number" id="serial_number" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 text-sm focus:ring-red-600 " placeholder="Serial Ejemplo: 45NGFS88SE" )
+          input(type="text" name="serial_number" id="serial_number" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 text-sm focus:ring-red-600 " placeholder="Serial Ejemplo: 45NGFS88SE" value=device.serial_number ? device.serial_number : "")
+          if errors
+            span(class="text-red-500 text-xs mx-2")=errors.serial_number ? errors.serial_number.msg : ""
+
+      div(class="grid grid-cols-1")
       div(class="grid grid-cols-1")
         label(for="description" class="block text-white font-semibold mb-2") Descripción del equipo
-        textarea(name="description" id="description" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 text-sm focus:ring-red-600" placeholder="Descripción del equipo" maxLength="100")
+        textarea(name="description" id="description" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 text-sm focus:ring-red-600" placeholder="Descripción del equipo" maxLength="100")=device.description ? device.description : ""
         p(id="count" class="count flex justify-end relative bottom-5  text-gray-400 text-xs mx-4") 0 / 100
 
       div(class="grid grid-cols-1")
