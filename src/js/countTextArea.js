@@ -1,7 +1,8 @@
 const textArea = document.querySelector("#address");
+const textAreaDescription = document.querySelector("#description");
 const count = document.querySelector("#count");
 
-textArea.addEventListener("input", (e) => {
+const eventTextArea = (textArea) => {
   if (!textArea.value.trim()) {
     count.textContent = "0 / 100";
     return;
@@ -12,4 +13,11 @@ textArea.addEventListener("input", (e) => {
   const maxLength = textArea.getAttribute("maxLength");
 
   count.textContent = `${valueTextArea} / ${maxLength}`;
-});
+};
+
+if (textArea) textArea.addEventListener("input", () => eventTextArea(textArea));
+
+if (textAreaDescription)
+  textAreaDescription.addEventListener("input", () =>
+    eventTextArea(textAreaDescription)
+  );
