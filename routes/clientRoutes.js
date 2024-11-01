@@ -15,10 +15,10 @@ const routes = express();
 routes.get("/client/create", authRoutes, viewClient);
 routes.post("/client/create", authRoutes, createClient);
 routes.get("/client/panel", authRoutes, viewClientPanel);
-routes.get("/client/search", searchClient);
+routes.get("/client/search", authRoutes, searchClient);
 routes.get("/client/edit/:id", authRoutes, viewClientEdit);
 routes.post("/client/edit/:id", authRoutes, editClient);
-routes.post("/client/delete/:id", deleteClient);
+routes.post("/client/delete/:id", authRoutes, deleteClient);
 
 // Redireccionar a la página de inicio si no está autenticado
 routes.get("/", (req, res) => {
