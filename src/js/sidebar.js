@@ -32,18 +32,22 @@ subMenuBtns.forEach((btn) => {
     // Verficar si el Submenú ya esta abierto
     const isOpen = !submenu.classList.contains("hidden");
 
-    //Cerrar todos los submeús e iconos rotados
-    subMenuBtns.forEach((otherBtn) => {
-      const otherSubmenu = otherBtn.nextElementSibling;
-      const otherIcon = otherBtn.querySelector(".submenu-icon");
+    // Cerrar otros submenús a nivel actual
+    let currentLevel = this.parentElement.parentElement;
+    currentLevel
+      .querySelectorAll(".submenu")
+      .forEach((submenu) => submenu.classList.add("hidden"));
 
-      otherSubmenu.classList.add("hidden");
-      otherIcon.classList.remove("rotate-180");
-    });
+    currentLevel
+      .querySelectorAll(".submenu-icon")
+      .forEach((icon) => icon.classList.remove("rotate-180"));
 
     if (!isOpen) {
       submenu.classList.remove("hidden");
       icon.classList.add("rotate-180");
+    } else {
+      submenu.classList.add("hidden");
+      icon.classList.remove("rotate-180");
     }
   });
 });
