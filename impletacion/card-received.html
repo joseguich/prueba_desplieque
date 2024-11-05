@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de Dispositivos</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-gray-900 text-white">
+        <div class="container mx-auto p-6">
+            <h1 class="text-3xl font-bold text-center mb-8">Lista de Dispositivos del Cliente</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Ejemplo de tarjeta de dispositivo, a replicar para cada dispositivo en tu backend -->
+                <div class="bg-gray-800 p-4 rounded-lg shadow-md text-white">
+                    <h3 class="font-bold text-lg mb-2">Equipo:
+                        <!-- Reemplazar con device.brand y device.model --></h3>
+                    <p class="text-sm">Número de Serie:
+                        <!-- Reemplazar con device.serial_number --></p>
+                    <p class="text-sm">Estado:
+                        <!-- Reemplazar con device.status --></p>
+                    <!-- Ejemplo de imagen; en la implementación dinámica, se generará una por cada 'image' en 'device.images' -->
+                    <img src="<!-- Reemplazar con image.image_path -->" alt="Imagen de evidencia" class="mt-2 rounded-md">
+                    <div class="mt-4 flex justify-between">
+                        <a href="/device/details/<!-- Reemplazar con device.id -->" class="text-blue-500 hover:underline">Ver Detalles</a>
+                        <a href="/device/edit/<!-- Reemplazar con device.id -->" class="text-yellow-400 hover:underline">Editar</a>
+                    </div>
+                </div>
+                <!-- Aquí se repetirían las tarjetas de dispositivos según los datos proporcionados por el backend -->
+            </div>
+        </div>
+    </body>
+</html>
