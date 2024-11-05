@@ -4,6 +4,7 @@ const multerErrors = (req, res, next) => {
   try {
     uploads.array("image", 5)(req, res, (err) => {
       if (err) {
+        console.log(err);
         if (err instanceof multer.MulterError) {
           //* Añadir el error al objeto de solitud (request)
           req.multerError = err;

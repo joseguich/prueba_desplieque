@@ -8,6 +8,7 @@ import {
   Device,
 } from "../models/index.js";
 import multer from "multer";
+import EvidenceImage from "../models/EvidenceImage.js";
 const viewDevice = async (req, res) => {
   try {
     const [clients, brands, models] = await Promise.all([
@@ -123,8 +124,6 @@ const createDevice = async (req, res) => {
               "Error al subir archivos. Verifica los fromatos permitidos";
             break;
         }
-      } else {
-        errorMessage = req.multerError.message;
       }
 
       return res.render("device/create", {
@@ -137,7 +136,7 @@ const createDevice = async (req, res) => {
         device: req.body,
       });
     }
-    await Device.create({
+    const createdDevice = await Device.create({
       client_id,
       brand_id,
       model_id,
@@ -145,6 +144,15 @@ const createDevice = async (req, res) => {
       serial_number,
       description,
     });
+
+    // Recorrer las imagenes subidas y guardarlas en la base de datos
+    const image = req.files.map((file) => ({
+      device_id: createdDevice.id,
+      imagePath: file.filename,
+    }));
+
+    // Insertar las imagenes en la base de datos
+    await EvidenceImage.bulkCreate(image);
 
     res.send("Dispositido creado correctamente");
   } catch (error) {
