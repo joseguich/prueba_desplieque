@@ -9,7 +9,6 @@ moment.locale("es");
 const viewClient = (req, res) => {
   res.render("client/create", {
     page: "Crear Cliente",
-    csrfToken: req.csrfToken(),
     client: {},
   });
 };
@@ -61,7 +60,6 @@ const createClient = async (req, res) => {
     if (clients) {
       return res.render("client/create", {
         page: "Crear Cliente",
-        csrfToken: req.csrfToken(),
         errors: { email: { msg: "El correo ya existe" } },
         client: req.body,
       });
@@ -139,7 +137,6 @@ const viewClientEdit = async (req, res) => {
 
   res.render("client/edit", {
     page: "Editar Cliente",
-    csrfToken: req.csrfToken(),
     client,
   });
 };

@@ -247,6 +247,12 @@ const createModel = async (req, res) => {
   });
 };
 
+const receivedDeviceView = async (req, res) => {
+  res.render("device/received", {
+    page: "Dispositivo de de los clientes",
+  });
+};
+
 export {
   viewDevice,
   createDevice,
@@ -254,4 +260,5 @@ export {
   createDeviceFailures,
   viewModel,
   createModel,
+  receivedDeviceView,
 };
