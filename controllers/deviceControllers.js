@@ -7,6 +7,7 @@ import {
   Models,
   Device,
 } from "../models/index.js";
+import multer from "multer";
 const viewDevice = async (req, res) => {
   try {
     const [clients, brands, models] = await Promise.all([
@@ -33,7 +34,6 @@ const viewDevice = async (req, res) => {
       categories,
       brands,
       models,
-      csrfToken: req.csrfToken(),
       device: {},
     });
   } catch (error) {
@@ -84,8 +84,7 @@ const createDevice = async (req, res) => {
 
   if (!result.isEmpty()) {
     return res.render("device/create", {
-      page: "Crear Equipo",
-      csrfToken: req.csrfToken(),
+      page: "Registro de Equipo",
       errors: result.mapped(),
       clients,
       categories,
@@ -94,23 +93,64 @@ const createDevice = async (req, res) => {
       device: req.body,
     });
   }
-  const {
-    client_id,
-    brand_id,
-    model_id,
-    problem_id,
-    serial_number,
-    description,
-  } = req.body;
-  await Device.create({
-    client_id,
-    brand_id,
-    model_id,
-    problem_id,
-    serial_number,
-    description,
-  });
-  res.json({ message: "Equipo registrado correctamente" });
+
+  try {
+    const {
+      client_id,
+      brand_id,
+      model_id,
+      problem_id,
+      serial_number,
+      description,
+    } = req.body;
+
+    // Verficar si hay error en el multer
+    if (req.multerError) {
+      let errorMessage = "Archivo desconocido al subir la imagen";
+
+      //Verificar el tipo de error
+      if (req.multerError instanceof multer.MulterError) {
+        const { code } = req.multerError;
+        switch (code) {
+          case "LIMIT_FILE_COUNT":
+            errorMessage = "Solo se puede subir 5 imagenes";
+            break;
+          case "LIMIT_UNEXPECTED_FILE":
+            errorMessage = "Archivo subido no es de tipo imagen";
+            break;
+          default:
+            errorMessage =
+              "Error al subir archivos. Verifica los fromatos permitidos";
+            break;
+        }
+      } else {
+        errorMessage = req.multerError.message;
+      }
+
+      return res.render("device/create", {
+        page: "Registro de Equipo",
+        errors: { image: { msg: errorMessage } },
+        brands,
+        clients,
+        categories,
+        models,
+        device: req.body,
+      });
+    }
+    await Device.create({
+      client_id,
+      brand_id,
+      model_id,
+      problem_id,
+      serial_number,
+      description,
+    });
+
+    res.send("Dispositido creado correctamente");
+  } catch (error) {
+    console.error("Error en el controlador createDevice:", error);
+    res.status(500).send("Error al crear el dispositivo.");
+  }
 };
 
 //Vista de fallas de equipos
@@ -119,7 +159,6 @@ const viewFailures = async (req, res) => {
 
   res.render("device/failures", {
     page: "Crear Falla del Equipo",
-    csrfToken: req.csrfToken(),
     categories,
     failures: {},
   });
@@ -147,7 +186,6 @@ const createDeviceFailures = async (req, res) => {
   if (!result.isEmpty()) {
     return res.render("device/failures", {
       page: "Crear Falla del Equipo",
-      csrfToken: req.csrfToken(),
       errors: result.mapped(),
       categories,
       failures: req.body,
@@ -168,7 +206,6 @@ const createDeviceFailures = async (req, res) => {
 const viewModel = async (req, res) => {
   res.render("device/model", {
     page: "Modelo del Equipo",
-    csrfToken: req.csrfToken(),
     model: {},
   });
 };
@@ -187,7 +224,6 @@ const createModel = async (req, res) => {
   if (!result.isEmpty()) {
     return res.render("device/model", {
       page: "Crear Modelo",
-      csrfToken: req.csrfToken(),
       errors: result.mapped(),
       model: req.body,
     });

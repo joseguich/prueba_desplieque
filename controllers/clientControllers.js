@@ -48,7 +48,6 @@ const createClient = async (req, res) => {
   if (!result.isEmpty()) {
     return res.render("client/create", {
       page: "Crear Cliente",
-      csrfToken: req.csrfToken(),
       errors: result.mapped(),
       client: req.body,
     });
@@ -120,7 +119,6 @@ const viewClientPanel = async (req, res) => {
       clients: verifiedClients,
       currentPage: page,
       totalPages,
-      csrfToken: req.csrfToken(),
     });
   } catch (error) {
     console.log("Error al cargar los clientes:", error);
@@ -214,7 +212,6 @@ const editClient = async (req, res) => {
   if (!result.isEmpty()) {
     return res.render("client/create", {
       page: "Crear Cliente",
-      csrfToken: req.csrfToken(),
       errors: result.mapped(),
       client: req.body,
     });

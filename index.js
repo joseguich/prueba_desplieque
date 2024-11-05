@@ -1,5 +1,4 @@
 import express from "express";
-import csrf from "csurf";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/usuarioRoutes.js";
 import repairsRoutes from "./routes/repairsRoutes.js";
@@ -33,7 +32,7 @@ try {
 app.use(cookieParser());
 
 //Hablitar CSURF
-app.use(csrf({ cookie: true }));
+// app.use(csrf({ cookie: true }));
 
 //Configurar plantilla de pug
 app.set("view engine", ".pug");

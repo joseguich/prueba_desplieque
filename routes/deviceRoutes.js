@@ -11,9 +11,10 @@ import {
   viewModel,
   createModel,
 } from "../controllers/deviceControllers.js";
+import multerErrors from "../middleware/multerErrors.js";
 
 routes.get("/device/create", authRoutes, viewDevice);
-routes.post("/device/create", authRoutes, createDevice);
+routes.post("/device/create", authRoutes, multerErrors, createDevice);
 
 routes.get("/device/failures", authRoutes, viewFailures);
 routes.post("/device/failures", authRoutes, createDeviceFailures);

@@ -5,22 +5,28 @@ import Problemphone from "./Problemphone.js";
 import CategoryFailure from "./CategoryFailure.js";
 import Brand from "./Brand.js";
 import Models from "./Models.js";
+import EvidenceImage from "./EvidenceImage.js";
 
-//Relacion de Cleinte a usuario
+//Relación de Cleinte a usuario
 Clients.belongsTo(User, { foreignKey: "user_id" });
 User.hasMany(Clients, { foreignKey: "user_id" });
 
-//Relacion de Equipo a cliente
+//Relación de Equipo a cliente
 Clients.hasMany(Device, { foreignKey: "client_id" });
 Device.belongsTo(Clients, { foreignKey: "client_id" });
 
-//Relacion de equipo a marca
+//Relación de equipo a marca
 Device.belongsTo(Brand, { foreignKey: "brand_id" });
 Device.belongsTo(Models, { foreignKey: "model_id" });
 
+// Relación de equipo a problema
 Device.belongsTo(Problemphone, { foreignKey: "problem_id" });
 
-//Relacion de problema a categoria de la falla
+//Relación de equipo a imagen
+Device.hasMany(EvidenceImage, { foreignKey: "device_id" });
+EvidenceImage.belongsTo(Device, { foreignKey: "device_id" });
+
+//Relación de problema a categoria de la falla
 Problemphone.belongsTo(CategoryFailure, {
   foreignKey: "category_id",
 });

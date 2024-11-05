@@ -6,7 +6,6 @@ import { generatorId, generatorJwt } from "../helpers/token.js";
 const viewLogin = (req, res) => {
   res.render("auth/login", {
     page: "Inicio de Sesión",
-    csrfToken: req.csrfToken(),
   });
 };
 
@@ -22,7 +21,6 @@ const authLogin = async (req, res) => {
       user: {
         identificar,
       },
-      csrfToken: req.csrfToken(),
     });
   }
 
@@ -40,7 +38,6 @@ const authLogin = async (req, res) => {
       user: {
         identificar,
       },
-      csrfToken: req.csrfToken(),
     });
   }
 
@@ -52,7 +49,6 @@ const authLogin = async (req, res) => {
       user: {
         identificar,
       },
-      csrfToken: req.csrfToken(),
     });
   }
 
@@ -65,7 +61,6 @@ const authLogin = async (req, res) => {
       user: {
         identificar,
       },
-      csrfToken: req.csrfToken(),
     });
   }
 
@@ -86,7 +81,6 @@ const authLogin = async (req, res) => {
 const viewForgetPassword = (req, res) => {
   res.render("auth/forget-password", {
     page: "Olvidaste Contraseña",
-    csrfToken: req.csrfToken(),
   });
 };
 
@@ -98,7 +92,6 @@ const forgetPassword = async (req, res) => {
   if (!resultado.isEmpty()) {
     return res.render("auth/forget-password", {
       page: "Olvidaste Contraseña",
-      csrfToken: req.csrfToken(),
       errores: resultado.array(),
       users: {
         email,
@@ -112,7 +105,6 @@ const forgetPassword = async (req, res) => {
   if (!user) {
     return res.render("auth/forget-password", {
       page: "Olvidaste Contraseña",
-      csrfToken: req.csrfToken(),
       errores: [{ msg: "El email no existe" }],
       users: {
         email,
@@ -139,7 +131,6 @@ const viewResetPassword = async (req, res) => {
 
   res.render("auth/reset-password", {
     page: "Retablecer Contraseña",
-    csrfToken: req.csrfToken(),
     user,
   });
 };
@@ -166,7 +157,6 @@ const resetPassword = async (req, res) => {
   if (!result.isEmpty()) {
     return res.render("auth/reset-password", {
       page: "Retablecer Contraseña",
-      csrfToken: req.csrfToken(),
       errores: result.array(),
       user,
     });
