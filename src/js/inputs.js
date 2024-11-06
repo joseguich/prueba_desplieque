@@ -1,7 +1,20 @@
-const search = document.querySelector("#search");
+const searchPanel = document.querySelector("#search");
+const searchDevice = document.querySelector("#search-device");
 
-search.addEventListener("input", () => {
+const searchClient = (search, link) => {
   if (search.value === "") {
-    window.location.href = "/client/panel";
+    window.location.href = link;
   }
-});
+};
+
+if (searchPanel) {
+  searchPanel.addEventListener("input", () =>
+    searchClient(searchPanel, "/client/panel")
+  );
+}
+
+if (searchDevice) {
+  searchDevice.addEventListener("input", () =>
+    searchClient(searchDevice, "/device/received")
+  );
+}

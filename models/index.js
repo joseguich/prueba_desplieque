@@ -20,10 +20,10 @@ Device.belongsTo(Brand, { foreignKey: "brand_id" });
 Device.belongsTo(Models, { foreignKey: "model_id" });
 
 // Relación de equipo a problema
-Device.belongsTo(Problemphone, { foreignKey: "problem_id" });
+Device.belongsTo(Problemphone, { as: "problem", foreignKey: "problem_id" });
 
 //Relación de equipo a imagen
-Device.hasMany(EvidenceImage, { foreignKey: "device_id" });
+Device.hasMany(EvidenceImage, { as: "image", foreignKey: "device_id" });
 EvidenceImage.belongsTo(Device, { foreignKey: "device_id" });
 
 //Relación de problema a categoria de la falla

@@ -9,6 +9,7 @@ import {
 } from "../models/index.js";
 import multer from "multer";
 import EvidenceImage from "../models/EvidenceImage.js";
+import { Op } from "sequelize";
 const viewDevice = async (req, res) => {
   try {
     const [clients, brands, models] = await Promise.all([
@@ -248,9 +249,68 @@ const createModel = async (req, res) => {
 };
 
 const receivedDeviceView = async (req, res) => {
-  res.render("device/received", {
-    page: "Dispositivo de de los clientes",
-  });
+  try {
+    const { search } = req.query;
+
+    //Verificar que el search no sea undefined
+    if (search === undefined) {
+      return (search = "");
+    }
+
+    if (!search || search.trim() === "") {
+      return res.render("device/received", {
+        page: "Dispositivo de de los clientes",
+        devices: [],
+        search,
+        errors: "Nombre de cliente o apellido no puede estar vacio",
+      });
+    }
+
+    const queryOption = {
+      include: [
+        { model: Models, as: "model", attributes: ["name"] },
+
+        { model: EvidenceImage, as: "image", attributes: ["imagePath"] },
+
+        { model: Problemphone, as: "problem", attributres: ["description"] },
+
+        { model: Clients, attributes: ["name", "last_name"], where: {} },
+      ],
+    };
+
+    if (search) {
+      queryOption.include[3].where = {
+        [Op.or]: [
+          { name: { [Op.like]: `%${search}%` } },
+          { last_name: { [Op.like]: `%${search}%` } },
+        ],
+      };
+    }
+
+    const devices = await Device.findAll(queryOption);
+
+    if (devices.length === 0) {
+      return res.render("device/received", {
+        page: "Dispositivo de de los clientes",
+        devices: [],
+        search,
+        errors: "No se encontraron dispositivos con ese nombre o apellido",
+      });
+    }
+
+    res.render("device/received", {
+      page: "Dispositivo de de los clientes",
+      devices,
+      search,
+      errors: null,
+    });
+  } catch (err) {
+    res.render("device/received", {
+      page: "Dispositivo de de los clientes",
+      devices: [],
+      errors: err,
+    });
+  }
 };
 
 export {

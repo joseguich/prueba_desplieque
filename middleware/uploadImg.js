@@ -25,8 +25,8 @@ const uploads = multer({
   // fileFilter: Nos ayuda a definir siertas reglras o condiciones.
   fileFilter: (req, file, cb) => {
     //* Indico que se define que solo se puedan subir imagenes
-    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
-    if (allowedTypes.includes(file.mimetype)) {
+    const allowedTypes = file.mimetype.startsWith("image/");
+    if (allowedTypes) {
       // Null si no hay error y true si se cumple la condicion
       cb(null, true);
     } else {
