@@ -1,7 +1,7 @@
 extends ../layouts/admin
 
 block content
-  div(class="max-w-6xl mx-auto bg-gray-800 p-8 rounded-lg shadow-xl shadow-red-900")
+  div(class="max-w-6xl mx-auto bg-gray-800 p-8 rounded-lg shadow-xl")
     h2(class="text-base md:text-4xl font-bold text-center text-white mb-14 cssanimation hu__hu__")=page
 
     div(class="mb-6")
@@ -16,8 +16,68 @@ block content
 
     div(class="grid grid-cols-1 md:grid-cols-3 gap-4")
       div(data-aos="fade-up"
-        class="cursor-pointer w-full p-1 rounded-lg text-white space-y-4 hover:-translate-y-1.5 transition-all duration-300 hover:my-2 md:hover:my-0 hover:shadow-red-800 hover:shadow-4xl")
-        div(class="bg-gray-700 rounded-bl-lg rounded-br-lg")
+        class="cursor-pointer w-full p-1 rounded-lg text-white space-y-4 ")
+        div(class="bg-gray-700 rounded-bl-lg rounded-br-lg hover:-translate-y-1.5 transition-all duration-300 hover:shadow-red-400 hover:shadow-2xl ease-in-out")
+          img(src="/img/Logo-Microtech.jpg" class="w-full h-40 rounded-tl-lg rounded-tr-lg object-cover")
+          div(class="space-y-4 pl-4 mt-4")
+            p(class="font-bold text-sm") Equipo:
+              span.ml-1.font-normal iPhone 11 Normal
+            p(class="font-bold text-sm") Problema: 
+              span.ml-1.font-normal Pantalla rota
+            p(class="font-bold text-sm") Estado:
+              span.ml-1.font-normal Recibido
+          div(class="flex justify-end items-center px-4 gap-6 ")
+            a(href="#" data-title="Ver Detalles" class="font-bold text-sm text-yellow-400 hover:scale-95 shadow-md hover:shadow-gray-900 transition-all duration-300 rounded-md my-2")
+              svg(xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor")
+                path(fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 6.5h9.75c2.107 0 3.16 0 3.917.506a3 3 0 0 1 .827.827C22 8.59 22 9.893 22 12M12 6.5l-.633-1.267c-.525-1.05-1.005-2.106-2.168-2.542C8.69 2.5 8.108 2.5 6.944 2.5c-1.816 0-2.724 0-3.406.38A3 3 0 0 0 2.38 4.038C2 4.72 2 5.628 2 7.444V10.5c0 4.179 0 6.505 1.02 8m3.637-2.93l2.062-.056c1.098-.03 1.647-.044 1.98.288c.331.332.316.88.287 1.979l-.055 2.062m-.295-3.979L5 21.5m17-6h-7m7 3h-7m3.5 3H15" color="currentColor")
+            a(href="#" data-title="Editar" class="font-bold text-sm hover:scale-95 shadow-md hover:shadow-gray-900 transition-all duration-300 rounded-md inline-block my-4")
+              svg(xmlns="http://www.w3.org/2000/svg" class="w-11 h-11" viewBox="0 0 50 50")
+                g(fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2")
+                  path(stroke="#fff" d="m28.708 27.188l-5.791-.105v-5.791L36.312 7.896a2.083 2.083 0 0 1 2.938 0l2.958 2.958a2.083 2.083 0 0 1 0 2.938z")
+                  path(stroke="#306cfe" d="M43.75 25A18.75 18.75 0 1 1 25 6.25")
+      div(data-aos="fade-up"
+        class="cursor-pointer w-full p-1 rounded-lg text-white space-y-4 ")
+        div(class="bg-gray-700 rounded-bl-lg rounded-br-lg hover:-translate-y-1.5 transition-all duration-300 hover:shadow-red-400 hover:shadow-2xl ease-in-out")
+          img(src="/img/Logo-Microtech.jpg" class="w-full h-40 rounded-tl-lg rounded-tr-lg object-cover")
+          div(class="space-y-4 pl-4 mt-4")
+            p(class="font-bold text-sm") Equipo:
+              span.ml-1.font-normal iPhone 11 Normal
+            p(class="font-bold text-sm") Problema: 
+              span.ml-1.font-normal Pantalla rota
+            p(class="font-bold text-sm") Estado:
+              span.ml-1.font-normal Recibido
+          div(class="flex justify-end items-center px-4 gap-6 ")
+            a(href="#" data-title="Ver Detalles" class="font-bold text-sm text-yellow-400 hover:scale-95 shadow-md hover:shadow-gray-900 transition-all duration-300 rounded-md my-2")
+              svg(xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor")
+                path(fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 6.5h9.75c2.107 0 3.16 0 3.917.506a3 3 0 0 1 .827.827C22 8.59 22 9.893 22 12M12 6.5l-.633-1.267c-.525-1.05-1.005-2.106-2.168-2.542C8.69 2.5 8.108 2.5 6.944 2.5c-1.816 0-2.724 0-3.406.38A3 3 0 0 0 2.38 4.038C2 4.72 2 5.628 2 7.444V10.5c0 4.179 0 6.505 1.02 8m3.637-2.93l2.062-.056c1.098-.03 1.647-.044 1.98.288c.331.332.316.88.287 1.979l-.055 2.062m-.295-3.979L5 21.5m17-6h-7m7 3h-7m3.5 3H15" color="currentColor")
+            a(href="#" data-title="Editar" class="font-bold text-sm hover:scale-95 shadow-md hover:shadow-gray-900 transition-all duration-300 rounded-md inline-block my-4")
+              svg(xmlns="http://www.w3.org/2000/svg" class="w-11 h-11" viewBox="0 0 50 50")
+                g(fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2")
+                  path(stroke="#fff" d="m28.708 27.188l-5.791-.105v-5.791L36.312 7.896a2.083 2.083 0 0 1 2.938 0l2.958 2.958a2.083 2.083 0 0 1 0 2.938z")
+                  path(stroke="#306cfe" d="M43.75 25A18.75 18.75 0 1 1 25 6.25")
+      div(data-aos="fade-up"
+        class="cursor-pointer w-full p-1 rounded-lg text-white space-y-4 ")
+        div(class="bg-gray-700 rounded-bl-lg rounded-br-lg hover:-translate-y-1.5 transition-all duration-300 hover:shadow-red-400 hover:shadow-2xl ease-in-out")
+          img(src="/img/Logo-Microtech.jpg" class="w-full h-40 rounded-tl-lg rounded-tr-lg object-cover")
+          div(class="space-y-4 pl-4 mt-4")
+            p(class="font-bold text-sm") Equipo:
+              span.ml-1.font-normal iPhone 11 Normal
+            p(class="font-bold text-sm") Problema: 
+              span.ml-1.font-normal Pantalla rota
+            p(class="font-bold text-sm") Estado:
+              span.ml-1.font-normal Recibido
+          div(class="flex justify-end items-center px-4 gap-6 ")
+            a(href="#" data-title="Ver Detalles" class="font-bold text-sm text-yellow-400 hover:scale-95 shadow-md hover:shadow-gray-900 transition-all duration-300 rounded-md my-2")
+              svg(xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor")
+                path(fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 6.5h9.75c2.107 0 3.16 0 3.917.506a3 3 0 0 1 .827.827C22 8.59 22 9.893 22 12M12 6.5l-.633-1.267c-.525-1.05-1.005-2.106-2.168-2.542C8.69 2.5 8.108 2.5 6.944 2.5c-1.816 0-2.724 0-3.406.38A3 3 0 0 0 2.38 4.038C2 4.72 2 5.628 2 7.444V10.5c0 4.179 0 6.505 1.02 8m3.637-2.93l2.062-.056c1.098-.03 1.647-.044 1.98.288c.331.332.316.88.287 1.979l-.055 2.062m-.295-3.979L5 21.5m17-6h-7m7 3h-7m3.5 3H15" color="currentColor")
+            a(href="#" data-title="Editar" class="font-bold text-sm hover:scale-95 shadow-md hover:shadow-gray-900 transition-all duration-300 rounded-md inline-block my-4")
+              svg(xmlns="http://www.w3.org/2000/svg" class="w-11 h-11" viewBox="0 0 50 50")
+                g(fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2")
+                  path(stroke="#fff" d="m28.708 27.188l-5.791-.105v-5.791L36.312 7.896a2.083 2.083 0 0 1 2.938 0l2.958 2.958a2.083 2.083 0 0 1 0 2.938z")
+                  path(stroke="#306cfe" d="M43.75 25A18.75 18.75 0 1 1 25 6.25")
+      div(data-aos="fade-up"
+        class="cursor-pointer w-full p-1 rounded-lg text-white space-y-4 ")
+        div(class="bg-gray-700 rounded-bl-lg rounded-br-lg hover:-translate-y-1.5 transition-all duration-300 hover:shadow-red-400 hover:shadow-2xl ease-in-out")
           img(src="/img/Logo-Microtech.jpg" class="w-full h-40 rounded-tl-lg rounded-tr-lg object-cover")
           div(class="space-y-4 pl-4 mt-4")
             p(class="font-bold text-sm") Equipo:
