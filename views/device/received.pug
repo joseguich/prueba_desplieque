@@ -6,18 +6,15 @@ block content
 
     div(class="mb-6")
       form(action="/device/received" method="GET" class="flex justify-end")
-        input(type="text" id="search-device" name="search" placeholder="Buscar cliente nombre u apellido" class="text-gray-300 text-sm py-3 w-full outline-none max-w-xl px-4 rounded-md bg-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-red-600" value="") 
+        input(type="text" id="search-device" name="search" placeholder="Buscar cliente nombre u apellido" class="text-gray-300 text-sm py-3 w-full outline-none max-w-xl px-4 rounded-md bg-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-red-600" value=search) 
         button(type="submit" class="ml-[-30px]" )
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white hover:text-indigo-300 mb-[2px] ">
             <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
           </svg>
       if errors && errors.length > 0    
-        p(class="text-red-600 font-bold text-sm")= errors
+        p(class="bg-red-600 max-w-md mx-auto p-1 text-white font-bold text-sm text-center rounded-md mt-6 errors")= errors
 
-      div(class="mb-6")
-        p(class="text-red-600 font-bold text-sm")=message
-
-    div(class="grid grid-cols-1 md:grid-cols-3 gap-4")
+    div(class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12")
       each device in devices
         div(data-aos="fade-up"
           class="cursor-pointer w-full p-1 rounded-lg text-white space-y-4")
@@ -40,6 +37,6 @@ block content
                     path(stroke="#fff" d="m28.708 27.188l-5.791-.105v-5.791L36.312 7.896a2.083 2.083 0 0 1 2.938 0l2.958 2.958a2.083 2.083 0 0 1 0 2.938z")
                     path(stroke="#306cfe" d="M43.75 25A18.75 18.75 0 1 1 25 6.25")
     if error
-      div(class="text-red-600 font-bold text-sm")=error
+      div(class="text-red-600 font-bold text-sm errors")=error
 
     //- pre.text-white= JSON.stringify(devices, null, 2)

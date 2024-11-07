@@ -7,3 +7,10 @@ accept= "image/" : establece una restricción en indicando que solo se puede sub
 *: indica que puede ser cualqueir tipo de imagen (jpg, png, etc)
 
 enctype="multipart/form-data":  Los utlizabamos para cuando tenemos que subir archivo.
+
+#### Expresiones Regulares
+
+/^\d+$/: Permite que el usuario ingrese solo números.
+
+/[^0-9]/g: Solo permite números tambien.
+

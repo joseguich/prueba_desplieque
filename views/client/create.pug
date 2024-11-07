@@ -7,26 +7,29 @@ block content
     form(action="/client/create" method="POST" class="space-y-8" novalidate)
       div( class="space-y-4")
         label(form="name" class="block text-sm text-gray-400 font-semibold") Nombre
+          span.text-red-600.ml-1 *
         input(type="text" name="name" id="name" class="w-full px-4 py-2 bg-gray-700 rounded-lg placeholder-gray-400 outline-none text-gray-300 focus:ring-2 focus:ring-red-500 " placeholder="Nombre del cliente" value=client.name)
         if errors
-          span(class="text-red-500 text-xs mx-2")=errors.name ? errors.name.msg : ""
+          span(class="text-red-500 text-xs mx-2 errors")=errors.name ? errors.name.msg : ""
 
         label(form="last_name" class="block text-sm text-gray-400 font-semibold") Apellido
+          span.text-red-600.ml-1 *
         input(type="text" id="last_name" name="last_name" class="w-full px-4 py-2 bg-gray-700 rounded-lg placeholder-gray-400 outline-none text-gray-300 focus:ring-2 focus:ring-red-500 " placeholder="Apellido del cliente" value=client ? client.last_name : "")
         if errors
-          span(class="text-red-500 text-xs mx-2")=errors.last_name ? errors.last_name.msg : ""
+          span(class="text-red-500 text-xs mx-2 errors")=errors.last_name ? errors.last_name.msg : ""
 
         label(form="email" class="block text-sm text-gray-400 font-semibold") Email
           small.ml-1 (Opcional)
         input(type="email" id="email" name="email" class="w-full px-4 py-2 bg-gray-700 rounded-lg placeholder-gray-400 outline-none text-gray-300 focus:ring-2 focus:ring-red-500 " placeholder="Email del cliente" value=client ? client.email : "")
         if errors
-          span(class="text-red-500 text-xs mx-2")=errors.email ? errors.email.msg : ""
+          span(class="text-red-500 text-xs mx-2 errors")=errors.email ? errors.email.msg : ""
 
 
         label(form="phone" class="block text-sm text-gray-400 font-semibold") Teléfono
+          span.text-red-600.ml-1 *
         input(type="phone" id="phone" name="phone" class="w-full px-4 py-2 bg-gray-700 rounded-lg placeholder-gray-400 outline-none text-gray-300 focus:ring-2 focus:ring-red-500 " placeholder="Teléfono del cliente" value=client ? client.phone : "")
         if errors
-          span(class="text-red-500 text-xs mx-2")=errors.phone ? errors.phone.msg : ""
+          span(class="text-red-500 text-xs mx-2 errors")=errors.phone ? errors.phone.msg : ""
 
         label(form="address" class="block text-sm text-gray-400 font-semibold") Dirección
           small.ml-1 (Opcional)

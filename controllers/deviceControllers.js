@@ -279,7 +279,9 @@ const receivedDeviceView = async (req, res) => {
     };
 
     if (search) {
+      // Buscar los nombre y apellido de los clientes
       queryOption.include[3].where = {
+        // Especificando la tabla clients
         [Op.or]: [
           { name: { [Op.like]: `%${search}%` } },
           { last_name: { [Op.like]: `%${search}%` } },
@@ -287,6 +289,7 @@ const receivedDeviceView = async (req, res) => {
       };
     }
 
+    // Obtener los datos
     const devices = await Device.findAll(queryOption);
 
     if (devices.length === 0) {

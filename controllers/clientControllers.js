@@ -98,6 +98,7 @@ const viewClientPanel = async (req, res) => {
         limit,
         order: [["createdAt", "DESC"]],
       });
+    console.log(totalClients);
 
     const totalPages = Math.ceil(totalClients / limit);
 
