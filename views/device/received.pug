@@ -5,12 +5,17 @@ block content
     h2(class="text-base md:text-4xl font-bold text-center text-white mb-14")=page
 
     div(class="mb-6")
-      form(action="/device/received" method="GET" class="flex justify-end")
-        input(type="text" id="search-device" name="search" placeholder="Buscar cliente nombre u apellido" class="text-gray-300 text-sm py-3 w-full outline-none max-w-xl px-4 rounded-md bg-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-red-600" value=search) 
-        button(type="submit" class="ml-[-30px]" )
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white hover:text-indigo-300 mb-[2px] ">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
+      form(action="/device/received" method="GET" class="flex flex-col items-center md:flex-row justify-end")
+        select(type="text" id="search-device" name="searchClientId" placeholder="Buscar cliente nombre u apellido" class="text-gray-300 text-sm py-3 w-full outline-none max-w-6xl px-4 rounded-md bg-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-red-600") 
+          option(value= "") Seleccione un cliente
+          each client in clients
+            option(value=client.id selected=selectedClientId ? client.id == selectedClientId : false)= `${client.name} ${client.last_name}`
+        button(type="submit" class="md:hidden w-full my-4 md:w-44 md:ml-2 p-3 text-white rounded-lg hover:bg-gradient-to-r from-red-800 to-gray-800 hover: transition-all duration-300 ease-in-out hover:scale-95 shadow-lg hover:shadow-gray-100 cursor-pointer  font-bold" ) Buscar Equipos
+
+        button(type="submit" class="hidden md:flex pl-2 hover:text-red-500 text-white hover:-translate-y-1.5 hover:scale-95 transition-all duration-500  cursor-pointer" )
+          svg(xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" viewBox="0 0 24 24")
+            path(fill="currentColor" d="M11.5 13.5q.525 0 .988-.137t.912-.413l1.525 1.575q.2.225.513.213t.537-.213q.225-.225.238-.537T16 13.45l-1.55-1.55q.275-.425.413-.9T15 10q0-1.475-1.038-2.488T11.5 6.5T9.037 7.513T8 10t1.038 2.488T11.5 13.5m0-1.5q-.825 0-1.412-.587T9.5 10t.588-1.412T11.5 8q.8 0 1.4.588T13.5 10t-.587 1.413T11.5 12M2 21q-.425 0-.712-.288T1 20t.288-.712T2 19h20q.425 0 .713.288T23 20t-.288.713T22 21zm2-3q-.825 0-1.412-.587T2 16V5q0-.825.588-1.412T4 3h16q.825 0 1.413.588T22 5v11q0 .825-.587 1.413T20 18z")
+
       if errors && errors.length > 0    
         p(class="bg-red-600 max-w-md mx-auto p-1 text-white font-bold text-sm text-center rounded-md mt-6 errors")= errors
 
@@ -20,10 +25,10 @@ block content
           class="cursor-pointer w-full p-1 rounded-lg text-white space-y-4")
           div(class="bg-gray-700 rounded-bl-lg rounded-br-lg hover:-translate-y-1.5 transition-all duration-300 hover:shadow-red-400 hover:shadow-2xl ease-in-out")
             if device.image && device.image.length > 0
-                img(src=`/uploads/${device.image[0].imagePath}` class="w-full h-40 rounded-tl-lg rounded-tr-lg object-cover")
+              img(src=`/uploads/${device.image[0].imagePath}` class="w-full h-40 rounded-tl-lg rounded-tr-lg object-cover")
             else
-              img(src="/uploads/single-image.jpg" alt="Sin imagen" class="w-full h-40 rounded-tl-lg rounded-tr-lg object-cover")
-              
+              img(src="/img/single-image.png" alt="Sin imagen" class="w-full h-40 rounded-tl-lg rounded-tr-lg object-cover")
+
             div(class="space-y-4 pl-4 mt-4 text-lg")
               h3(class="font-bold ") Equipo:
                 span.ml-1.font-normal.text-base= device.model.name
@@ -31,8 +36,9 @@ block content
                 span.ml-1.font-normal.text-base= device.problem.description
               p(class="font-bold ") Estado:
                 span(class="ml-1 font-normal text-center text-base text-indigo-800 bg-indigo-200 rounded-md w-28 inline-block")= device.status
+
             div(class="flex justify-end items-center px-4 gap-6 ")
-              a(href="#" data-title="Ver Detalles" class="font-bold text-sm text-yellow-400 hover:scale-95 shadow-md hover:shadow-gray-900 transition-all duration-300 rounded-md inline-block my-2 md:mb-4 flex items-center")
+              a(href=`/device/received/${device.id}` data-title="Ver Detalles" class="font-bold text-sm text-yellow-400 hover:scale-95 shadow-md hover:shadow-gray-900 transition-all duration-300 rounded-md inline-block my-2 md:mb-4 flex items-center")
                 svg(xmlns="http://www.w3.org/2000/svg" class="w-9 h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor")
                   path(fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 6.5h9.75c2.107 0 3.16 0 3.917.506a3 3 0 0 1 .827.827C22 8.59 22 9.893 22 12M12 6.5l-.633-1.267c-.525-1.05-1.005-2.106-2.168-2.542C8.69 2.5 8.108 2.5 6.944 2.5c-1.816 0-2.724 0-3.406.38A3 3 0 0 0 2.38 4.038C2 4.72 2 5.628 2 7.444V10.5c0 4.179 0 6.505 1.02 8m3.637-2.93l2.062-.056c1.098-.03 1.647-.044 1.98.288c.331.332.316.88.287 1.979l-.055 2.062m-.295-3.979L5 21.5m17-6h-7m7 3h-7m3.5 3H15" color="currentColor")
               a(href="#" data-title="Editar" class="font-bold text-sm hover:scale-95 shadow-md hover:shadow-gray-900 transition-all duration-300 rounded-md inline-block my-2 md:mb-4 flex items-center")

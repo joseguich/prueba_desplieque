@@ -250,19 +250,31 @@ const createModel = async (req, res) => {
 
 const receivedDeviceView = async (req, res) => {
   try {
-    const { search } = req.query;
+    const { searchClientId } = req.query;
 
-    //Verificar que el search no sea undefined
-    if (search === undefined) {
-      return (search = "");
+    const clients = await Clients.findAll({
+      attributes: ["id", "name", "last_name"],
+    });
+
+    // Verificar si clientId está definido
+    if (typeof searchClientId === "undefined") {
+      return res.render("device/received", {
+        page: "Dispositivo de los clientes",
+        devices: [],
+        clients,
+        selectedClient: null,
+        errors: null, // No mostrar errores en la primera carga
+      });
     }
 
-    if (!search || search.trim() === "") {
+    // Verificar si hay cliente seleccionado
+    if (!searchClientId) {
       return res.render("device/received", {
         page: "Dispositivo de de los clientes",
         devices: [],
-        search,
-        errors: "Nombre de cliente o apellido no puede estar vacio",
+        clients,
+        selectedClientId: searchClientId,
+        errors: "Seleccione un cliente",
       });
     }
 
@@ -274,20 +286,13 @@ const receivedDeviceView = async (req, res) => {
 
         { model: Problemphone, as: "problem", attributres: ["description"] },
 
-        { model: Clients, attributes: ["name", "last_name"], where: {} },
+        {
+          model: Clients,
+          attributes: ["name", "last_name"],
+          where: { id: searchClientId },
+        },
       ],
     };
-
-    if (search) {
-      // Buscar los nombre y apellido de los clientes
-      queryOption.include[3].where = {
-        // Especificando la tabla clients
-        [Op.or]: [
-          { name: { [Op.like]: `%${search}%` } },
-          { last_name: { [Op.like]: `%${search}%` } },
-        ],
-      };
-    }
 
     // Obtener los datos
     const devices = await Device.findAll(queryOption);
@@ -296,7 +301,8 @@ const receivedDeviceView = async (req, res) => {
       return res.render("device/received", {
         page: "Dispositivo de de los clientes",
         devices: [],
-        search,
+        clients,
+        selectedClientId: searchClientId,
         errors: "No se encontraron dispositivos con ese nombre o apellido",
       });
     }
@@ -304,13 +310,16 @@ const receivedDeviceView = async (req, res) => {
     res.render("device/received", {
       page: "Dispositivo de de los clientes",
       devices,
-      search,
+      clients,
+      selectedClientId: searchClientId,
       errors: null,
     });
   } catch (err) {
+    console.log(err);
     res.render("device/received", {
       page: "Dispositivo de de los clientes",
       devices: [],
+      clients: [],
       errors: err,
     });
   }
