@@ -254,6 +254,7 @@ const receivedDeviceView = async (req, res) => {
 
     const clients = await Clients.findAll({
       attributes: ["id", "name", "last_name"],
+      order: [["name", "ASC"]],
     });
 
     // Verificar si clientId está definido
