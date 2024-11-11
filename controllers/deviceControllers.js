@@ -254,6 +254,7 @@ const receivedDeviceView = async (req, res) => {
 
     const clients = await Clients.findAll({
       attributes: ["id", "name", "last_name"],
+      order: [["name", "ASC"]],
     });
 
     // Verificar si clientId está definido
@@ -325,6 +326,39 @@ const receivedDeviceView = async (req, res) => {
   }
 };
 
+const viewDeviceDetails = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const devices = await Device.findByPk(id, {
+      // Join de las tablas.
+      include: [
+        { model: EvidenceImage, as: "image", attributes: ["imagePath"] },
+        { model: Models, as: "model", attributes: ["name"] },
+        { model: Clients, as: "client", attributes: ["name", "last_name"] },
+        { model: Problemphone, as: "problem", attributes: ["description"] },
+        { model: Brand, as: "brand", attributes: ["name"] },
+      ],
+    });
+
+    //Validar que existe
+    if (!devices) {
+      return res.redirect("/device/received");
+    }
+    res.render("device/details", {
+      page: "Información del dispositivo",
+      devices,
+    });
+  } catch (err) {
+    res.render("device/details", {
+      page: "Información del dispositivo",
+      devices: [],
+      errors: err,
+    });
+    console.log(err);
+  }
+};
+
 export {
   viewDevice,
   createDevice,
@@ -333,4 +367,5 @@ export {
   viewModel,
   createModel,
   receivedDeviceView,
+  viewDeviceDetails,
 };
