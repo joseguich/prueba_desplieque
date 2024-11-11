@@ -1,0 +1,62 @@
+extends ../layouts/admin
+
+block content
+  a(href="/device/received" class="hover:text-red-600 text-white block w-12 relative bottom-10 " )
+    svg(xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 rounded-lg hover:shadow-xl hover:-translate-y-1.5 hover:shadow-red-600 transition duration-500" viewBox="0 0 512 512")
+      path(fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144")
+
+  div(class="max-w-4xl mx-auto ")
+    h2(class="text-2xl md:text-4xl text-center font-bold text-white")= page
+
+    div(class="bg-gray-700 rounded-lg")
+      //- Contenedor del carrusel Swiper
+      div(class="swiper mt-10 h-96 w-full overflow-hidden")
+        div(class="swiper-wrapper")
+          if devices.image && devices.image.length > 0 
+            each image in devices.image
+              div(class="swiper-slide")
+                a(href=`/uploads/${image.imagePath}` target="_blank")
+                  img(src=`/uploads/${image.imagePath}` class="h-full w-full object-cover")
+          else 
+            div(class="swiper-slide")
+              img(src="/img/single-image.png" alt="single image" class="h-full w-full object-cover")
+
+        //- Botones de navegación
+        div(class="swiper-button-next text-white")
+        div(class="swiper-button-prev text-white") 
+
+        div(class="swiper-scrollbar")
+
+      //- Información del dispositivo
+      div(class="text-white mt-4 space-y-4 mx-2 font-[PatuaOne]")
+        h3(class=" text-3xl text-center mb-2 font-bold")= devices.model.name
+        div(class="border-b-4 border-gray-800 w-full")
+        div(class="grid grid-cols-1 md:grid-cols-2 space-y-4 md:gap-6 md:space-y-0")
+          div
+            label(for="client_id" class="text-base md:text-lg text-gray-300 block ml-2 mb-2 font-bold") Cliente
+            input(id="client_id" class="w-full md:text-base text-sm bg-gray-800 p-2 rounded-lg outline-none"  value=` ${devices.client.name} ${devices.client.last_name}` disabled)
+          div
+            label(for="serial_number" class="text-base md:text-lg text-gray-300 block ml-2 mb-2 font-bold") Serial del Equipo
+            input(id="client_id" class="w-full md:text-base text-sm bg-gray-800 p-2 rounded-lg outline-none"  value=devices.serial_number disabled)
+          div
+            label(for="serial_number" class="text-base md:text-lg text-gray-300 block ml-2 mb-2 font-bold") Falla del equipo
+            input(id="serial_numbe" class="w-full  md:text-base text-sm bg-gray-800 p-2 rounded-lg outline-none"  value=devices.problem.description disabled)
+
+          div
+            label(for="description" class="text-base md:text-lg text-gray-300 block ml-2 mb-2 font-bold") Condición del equipo
+            textArea(id="description" class="w-full  md:text-base text-sm bg-gray-800 p-2 rounded-lg outline-none" disabled)= devices.description ? devices.description : "No hay descripción"
+        div(class="py-4 cursor-pointer ")
+          if devices.status === "Recibido"
+            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-indigo-400 rounded-lg")= devices.status
+          else if devices.status === "Despachado"
+            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-green-600 rounded-lg")= devices.status
+          else if devices.status === "Listo para Entregar"
+            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-blue-600 rounded-lg")= devices.status
+          else if devices.status === "En Reparación"
+            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-violet-700 rounded-lg")= devices.status
+
+    if errors
+      div(class="bg-red-500 text-white p-4 rounded-lg mt-10")
+        p(class="text-center")= errors
+
+    //- pre= JSON.stringify(devices, null, 2)
