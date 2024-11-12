@@ -149,7 +149,7 @@ const createDevice = async (req, res) => {
     // Recorrer las imagenes subidas y guardarlas en la base de datos
     const image = req.files.map((file) => ({
       device_id: createdDevice.id,
-      imagePath: file.filenamev,
+      imagePath: file.filename,
     }));
 
     // Insertar las imagenes en la base de datos
