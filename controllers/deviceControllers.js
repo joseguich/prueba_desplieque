@@ -162,6 +162,46 @@ const createDevice = async (req, res) => {
   }
 };
 
+const deviceEditView = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [clients, brands, models] = await Promise.all([
+      Clients.findAll({ order: [["name", "ASC"]] }),
+      Brand.findAll({ order: [["name", "ASC"]] }),
+      Models.findAll({ order: [["name", "ASC"]] }),
+    ]);
+
+    // Obtener las categorias de los problemas
+    const categories = await CategoryFailure.findAll({
+      // Incluir los problemas asociados a las categorías
+      include: [
+        {
+          model: Problemphone,
+          as: "problems",
+          attributes: ["id", "description"],
+        },
+      ],
+    });
+
+    const devices = await Device.findByPk(id);
+
+    if (!devices) {
+      return res.redirect("/device/received");
+    }
+
+    res.render("device/edit", {
+      page: "Editar Equipo",
+      clients,
+      categories,
+      brands,
+      models,
+      devices,
+    });
+  } catch (error) {
+    console.log("Error al obtener los queries de la db", error);
+  }
+};
+
 //Vista de fallas de equipos
 const viewFailures = async (req, res) => {
   const categories = await CategoryFailure.findAll();
@@ -368,4 +408,5 @@ export {
   createModel,
   receivedDeviceView,
   viewDeviceDetails,
+  deviceEditView,
 };

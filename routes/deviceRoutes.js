@@ -12,6 +12,7 @@ import {
   createModel,
   receivedDeviceView,
   viewDeviceDetails,
+  deviceEditView,
 } from "../controllers/deviceControllers.js";
 import multerErrors from "../middleware/multerErrors.js";
 
@@ -27,5 +28,6 @@ routes.post("/device/model", authRoutes, createModel);
 routes.get("/device/received", authRoutes, receivedDeviceView);
 
 routes.get("/device/details/:id", authRoutes, viewDeviceDetails);
+routes.get("/device/edit/:id", authRoutes, deviceEditView);
 
 export default routes;
