@@ -2,13 +2,16 @@ import Swal from "sweetalert2";
 document.addEventListener("DOMContentLoaded", function () {
   const cancelarBtnCreate = document.querySelector("#cancelar-create");
   const cancelarBtnEdit = document.querySelector("#cancelar-edit");
+  const cancelarBtnDevice = document.querySelector("#cancelar-device-edit");
+  console.log(cancelarBtnDevice);
   const deleteForms = document.querySelectorAll(".delete-form");
 
   // Sweet Alert editar
   const sweetAlertEdit = (
     edit = "editando",
     cancel = "cancelar",
-    modify = "Modificando"
+    modify = "Modificando",
+    link
   ) => {
     Swal.fire({
       title: "¿Estás seguro?",
@@ -29,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (result.isConfirmed) {
         Swal.fire("Cancelar", `${modify}`, "success");
         setTimeout(() => {
-          window.location.href = "/client/panel";
+          window.location.href = `${link}`;
         }, 1000);
       }
     });
@@ -72,13 +75,29 @@ document.addEventListener("DOMContentLoaded", function () {
       sweetAlertEdit(
         "Creación",
         "Cancelar",
-        "Creación fue cancelada correctamente"
+        "Creación fue cancelada correctamente",
+        "/client/panel"
       )
     );
   }
   if (cancelarBtnEdit) {
     cancelarBtnEdit.addEventListener("click", () =>
-      sweetAlertEdit("Edición", "Cancelar", "Modificando fue cancelada")
+      sweetAlertEdit(
+        "Edición",
+        "Cancelar",
+        "Modificando fue cancelada",
+        "/client/panel"
+      )
     );
+  }
+  if (cancelarBtnDevice) {
+    cancelarBtnDevice.addEventListener("click", () => {
+      sweetAlertEdit(
+        "Edición",
+        "Cancelar",
+        "Modificando fue cancelada",
+        "/device/received"
+      );
+    });
   }
 });

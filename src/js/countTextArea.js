@@ -15,7 +15,10 @@ const eventTextArea = (textArea) => {
   count.textContent = `${valueTextArea} / ${maxLength}`;
 };
 
-if (textArea) textArea.addEventListener("input", () => eventTextArea(textArea));
+if (textArea) {
+  textArea.addEventListener("input", () => eventTextArea(textArea));
+  count.textContent = `${textArea.value.length} / 100`;
+}
 
 if (textAreaDescription) {
   textAreaDescription.addEventListener("input", () =>
