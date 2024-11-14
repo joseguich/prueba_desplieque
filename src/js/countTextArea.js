@@ -17,7 +17,9 @@ const eventTextArea = (textArea) => {
 
 if (textArea) textArea.addEventListener("input", () => eventTextArea(textArea));
 
-if (textAreaDescription)
+if (textAreaDescription) {
   textAreaDescription.addEventListener("input", () =>
     eventTextArea(textAreaDescription)
   );
+  count.textContent = `${textAreaDescription.value.length} / 100`;
+}

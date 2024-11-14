@@ -183,6 +183,7 @@ const deviceEditView = async (req, res) => {
       ],
     });
 
+    // Obtener los datos de los equipos
     const devices = await Device.findByPk(id);
 
     if (!devices) {
