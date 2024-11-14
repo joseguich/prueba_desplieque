@@ -13,6 +13,7 @@ import {
   receivedDeviceView,
   viewDeviceDetails,
   deviceEditView,
+  deviceEdit,
 } from "../controllers/deviceControllers.js";
 import multerErrors from "../middleware/multerErrors.js";
 
@@ -29,5 +30,6 @@ routes.get("/device/received", authRoutes, receivedDeviceView);
 
 routes.get("/device/details/:id", authRoutes, viewDeviceDetails);
 routes.get("/device/edit/:id", authRoutes, deviceEditView);
+routes.post("/device/edit/:id", authRoutes, multerErrors, deviceEdit);
 
 export default routes;

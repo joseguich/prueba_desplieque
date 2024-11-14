@@ -1,79 +1,97 @@
 extends ../layouts/admin
 
 block content
-  a(href="/device/received" class="hover:text-red-600 text-white block w-12 relative bottom-10 " )
+  a(href="/device/received" class="hover:text-red-600 text-white block w-12 relative bottom-10")
     svg(xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 rounded-lg hover:shadow-xl hover:-translate-y-1.5 hover:shadow-red-600 transition duration-500" viewBox="0 0 512 512")
       path(fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144")
+
   div(class="max-w-4xl mx-auto bg-gray-800 p-8 rounded-lg shadow-lg")
-    h2(class="text-base md:text-4xl font-bold text-center text-white mb-12")=page
-    form(action="" id="devices-form" method="POST" enctype="multipart/form-data" class="grid grid-rows-auto gap-6 ")
+    h2(class="text-base md:text-4xl font-bold text-center text-white mb-12")= page
+
+    form(id="devices-form" method="POST" enctype="multipart/form-data" class="grid grid-rows-auto gap-6")
+
       div(class="grid grid-cols-1 md:grid-cols-3 gap-6")
+        // Selección de Cliente
         div 
           label(for="client_id" class="block text-gray-300 font-semibold mb-2") Cliente
             span.text-red-600.ml-1 *     
           select(name="client_id" id="client_id" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600")
             option(value="") -Selecciona un cliente-
             each client in clients
-              option(value=client.id selected=devices.client_id ? client.id == devices.client_id : false )=`${client.name} ${client.last_name}`
+              option(value=client.id selected=devices.client_id ? client.id == devices.client_id : false)= `${client.name} ${client.last_name}`
           if errors
-            span(class="text-red-500 text-xs mx-2 errors")=errors.client_id ? errors.client_id.msg : ""
+            span(class="text-red-500 text-xs mx-2 errors")= errors.client_id ? errors.client_id.msg : ""
+
+        // Selección de Marca y Modelo del Equipo
         div 
           label(for="brand_id" class="block text-gray-300 font-semibold mb-2") Marca del Equipo
             span.text-red-600.ml-1 *    
           select(name="brand_id" id="brand_id" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600")
             option(value="") -Selecciona una marca-
             each brand in brands 
-              option(value= brand.id selected=devices.brand_id ? brand.id == devices.brand_id : false)=brand.name
+              option(value=brand.id selected=devices.brand_id ? brand.id == devices.brand_id : false)= brand.name
           if errors
-            span(class="text-red-500 text-xs mx-2 errors")=errors.brand_id ? errors.brand_id.msg : ""
+            span(class="text-red-500 text-xs mx-2 errors")= errors.brand_id ? errors.brand_id.msg : ""
         div 
           label(for="model_id" class="block text-gray-300 font-semibold mb-2") Modelo del Equipo
             span.text-red-600.ml-1 *    
           select(name="model_id" id="model_id" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600")
             option(value="") -Selecciona un modelo-
-              each model in models 
-                option(value= model.id selected=devices.model_id ? model.id == devices.model_id : false)=model.name
+            each model in models 
+              option(value=model.id selected=devices.model_id ? model.id == devices.model_id : false)= model.name
           if errors
-            span(class="text-red-500 text-xs mx-2 errors")=errors.model_id ? errors.model_id.msg : ""
+            span(class="text-red-500 text-xs mx-2 errors")= errors.model_id ? errors.model_id.msg : ""
 
+      // Descripción del problema y serial del equipo
       div(class="grid grid-cols-1 md:grid-cols-2 gap-6")
         div 
           label(for="problem_id" class="block text-gray-300 font-semibold mb-2") Falla del equipo
             span.text-red-600.ml-1 *      
-          select(name="problem_id" id="problem_id" class=" cursor-pointer w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600")
-            option(value="" class="") -Selecciona un Falla-
+          select(name="problem_id" id="problem_id" class="cursor-pointer w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600")
+            option(value="") -Selecciona un Falla-
             each category in categories
               optgroup(label=category.name class="text-sm cursor-pointer optgroup")
                 each problem in category.problems
-                  option(value=problem.id selected=devices.problem_id ? problem.id == devices.problem_id: false )=problem.description
+                  option(value=problem.id selected=devices.problem_id ? problem.id == devices.problem_id : false)= problem.description
           if errors
-            span(class="text-red-500 text-xs mx-2 errors")=errors.problem_id ? errors.problem_id.msg : ""
+            span(class="text-red-500 text-xs mx-2 errors")= errors.problem_id ? errors.problem_id.msg : ""
 
         div 
           label(for="serial_number" class="block text-gray-300 font-semibold mb-2") Serial del equipo
             span.text-red-600.ml-1 * 
-
-          input(type="text" name="serial_number" id="serial_number" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600 " placeholder="Serial Ejemplo: 45NGFS88SE" value=devices.serial_number ? devices.serial_number : "")
+          input(type="text" name="serial_number" id="serial_number" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600" placeholder="Serial Ejemplo: 45NGFS88SE" value=devices.serial_number ? devices.serial_number : "")
           if errors
-            span(class="text-red-500 text-xs mx-2 errors")=errors.serial_number ? errors.serial_number.msg : ""
+            span(class="text-red-500 text-xs mx-2 errors")= errors.serial_number ? errors.serial_number.msg : ""
 
+      // Imágenes Actuales con Opciones de Reemplazo y Eliminación
       div(class="grid grid-cols-1")
         div
-          label(for="description" class="block text-gray-300 font-semibold mb-2") Descripción del equipo       
-            small.ml-2.text-gray-500 (Opcional)
-          textarea(name="description" id="description" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600" placeholder="Descripción del equipo" maxLength="100")=devices.description ? devices.description : ""
-          p(id="count" class="count flex justify-end relative bottom-5  text-gray-400 text-xs mx-4") 0 / 100
+          label(for="current-images" class="block text-gray-300 font-semibold mb-2") Imágenes Actuales
+          if evidenceImage.length 
+            each image, index in evidenceImage
+              div(class="mb-4 flex items-center gap-4")
 
-      div(class="grid grid-cols-1")
-        div
-          label(for="image" class="block text-gray-300 font-semibold mb-2") Imagen del equipo 
-          input(type="file" name="image" id="image" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600 cursor-progress" multiple accept="image/*" value="")
-          if errors
-            span(class="text-red-500 text-xs mx-2 errors")=errors.image ? errors.image.msg : ""
+                img(src=`/uploads/${image.imagePath}`, alt="Imagen actual", class="w-12 h-12 md:w-28 md:h-28 rounded-lg object-cover")
 
+                // Reemplazar Imagen
+                label(for=`replace-image-${image.id}` class="text-sm text-gray-300") Reemplazar imagen
+                input(type="file" name="replaceImages" id=`replace-image-${image.id}` data-image-id=image.id class="text-gray-300 block w-full text-xs" accept="image/*")
+
+                // Eliminar Imagen
+                label(for=`delete-image-${image.id}` class="text-sm text-gray-300 ml-2") Eliminar
+                input(type="checkbox" name="deleteImages" id=`delete-image-${image.id}` value=image.id class="text-red-500")
+          else
+            p.text-gray-400 Sin imágenes
+
+      // Subir Nuevas Imágenes
+      label(for="newImages" class="block text-gray-300 font-semibold mb-2 mt-4") Agregar Nuevas Imágenes (Opcional)
+      input(type="file" name="newImages" id="newImages" multiple class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600 cursor-pointer" accept="image/*")
+
+      if errors
+        span(class="text-red-500 text-xs mx-2 errors")= errors.image ? errors.image.msg : ""
+
+      // Botones de Guardar y Cancelar
       div(class="flex flex-col md:flex-row gap-4 justify-center items-center mt-10")
-        button(type="button" id="cancelar-device-edit" class="w-full md:w-3/6 cursor-pointer font-bold bg-red-600  hover:bg-red-800 text-gray-300 text-sm md:text-xl p-[7px] rounded-lg shadow-lg hover:shadow-gray-600 hover:scale-90 transition-all duration-300") Cancelar
+        button(type="button" id="cancelar-device-edit" class="w-full md:w-3/6 cursor-pointer font-bold bg-red-600 hover:bg-red-800 text-gray-300 text-sm md:text-xl p-[7px] rounded-lg shadow-lg hover:shadow-gray-600 hover:scale-90 transition-all duration-300") Cancelar
+        input(type="submit" class="w-full md:w-3/6 cursor-pointer font-bold bg-gray-700 hover:bg-indigo-700 text-gray-300 text-sm md:text-xl rounded-lg shadow-lg hover:shadow-gray-700 hover:scale-90 p-[10px] transition-all duration-300" value="Guardar Cambios")
 
-        input(type="submit" class=" w-full md:w-3/6 cursor-pointer font-bold bg-gray-700 hover:bg-indigo-700 text-gray-300 text-sm md:text-xl rounded-lg shadow-lg hover:shadow-gray-700  hover:scale-90 p-[10px] transition-all duration-300" value="Ingresar Equipo")
-
-      //- pre.text-gray-300=JSON.stringify(categories, null, 2)

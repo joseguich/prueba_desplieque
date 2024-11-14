@@ -9,7 +9,7 @@ import {
 } from "../models/index.js";
 import multer from "multer";
 import EvidenceImage from "../models/EvidenceImage.js";
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 const viewDevice = async (req, res) => {
   try {
     const [clients, brands, models] = await Promise.all([
@@ -186,6 +186,10 @@ const deviceEditView = async (req, res) => {
     // Obtener los datos de los equipos
     const devices = await Device.findByPk(id);
 
+    const evidenceImage = await EvidenceImage.findAll({
+      where: { device_id: devices.id },
+    });
+
     if (!devices) {
       return res.redirect("/device/received");
     }
@@ -196,10 +200,151 @@ const deviceEditView = async (req, res) => {
       categories,
       brands,
       models,
+      evidenceImage,
       devices,
     });
   } catch (error) {
     console.log("Error al obtener los queries de la db", error);
+  }
+};
+
+const deviceEdit = async (req, res) => {
+  const { id } = req.params;
+  console.log(req.body);
+  const [clients, brands, models] = await Promise.all([
+    Clients.findAll(),
+    Brand.findAll({ order: [["name", "ASC"]] }),
+    Models.findAll({ order: [["name", "ASC"]] }),
+  ]);
+
+  // Obtener las categorias de los problemas
+  const categories = await CategoryFailure.findAll({
+    // Incluir los problemas asociados a las categorías
+    include: [
+      {
+        model: Problemphone,
+        as: "problems",
+        attributes: ["id", "description"],
+      },
+    ],
+  });
+  const devices = await Device.findByPk(id);
+  const evidenceImage = await EvidenceImage.findAll({
+    where: { device_id: devices.id },
+  });
+
+  await check("client_id")
+    .notEmpty()
+    .withMessage("Seleccione el cliente es obligatorio")
+    .run(req);
+  await check("brand_id")
+    .notEmpty()
+    .withMessage("Seleccione la marca obligatoria")
+    .run(req);
+  await check("model_id")
+    .notEmpty()
+    .withMessage("Seleccione el modelo es obligatorio")
+    .run(req);
+  await check("problem_id")
+    .notEmpty()
+    .withMessage("Seleccione la falla del equipo")
+    .run(req);
+  await check("serial_number")
+    .notEmpty()
+    .withMessage("Serial es obligatorio")
+    .run(req);
+
+  const result = validationResult(req);
+
+  if (!result.isEmpty()) {
+    return res.render("device/edit", {
+      page: "Editar Equipo",
+      errors: result.mapped(),
+      clients,
+      categories,
+      brands,
+      models,
+      evidenceImage: evidenceImage || [],
+      devices: req.body,
+    });
+  }
+
+  try {
+    const {
+      client_id,
+      brand_id,
+      model_id,
+      problem_id,
+      serial_number,
+      description,
+    } = req.body;
+
+    if (!devices) {
+      return res.redirect("/device/received");
+    }
+
+    // Verficar si hay error en el multer
+    if (req.multerError) {
+      let errorMessage = "Archivo desconocido al subir la imagen";
+
+      //Verificar el tipo de error
+      if (req.multerError instanceof multer.MulterError) {
+        const { code } = req.multerError;
+        switch (code) {
+          case "LIMIT_FILE_COUNT":
+            errorMessage = "Solo se puede subir 5 imagenes";
+            break;
+          case "LIMIT_UNEXPECTED_FILE":
+            errorMessage = "Archivo subido no es de tipo imagen";
+            break;
+          default:
+            errorMessage =
+              "Error al subir archivos. Verifica los fromatos permitidos";
+            break;
+        }
+      }
+
+      return res.render("device/edit", {
+        page: "Editar Equipo",
+        errors: { image: { msg: errorMessage } },
+        brands,
+        clients,
+        categories,
+        models,
+        evidenceImage: evidenceImage || [],
+        devices: req.body,
+      });
+    }
+
+    //Actaulizar los datos
+    await devices.set({
+      client_id,
+      brand_id,
+      model_id,
+      problem_id,
+      serial_number,
+      description,
+    });
+
+    await devices.save();
+
+    res.render("template/message-admin", {
+      page: "Equipo editado correctamente",
+      message: "Equipo fue editado correctamente",
+      edition: true,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.render("device/edit", {
+      page: "Editar Equipo",
+      errors: error,
+      clients,
+      categories,
+      brands,
+      models,
+      evidenceImage: [],
+      devices: [],
+    });
   }
 };
 
@@ -410,4 +555,5 @@ export {
   receivedDeviceView,
   viewDeviceDetails,
   deviceEditView,
+  deviceEdit,
 };

@@ -14,6 +14,7 @@ app.use(express.static("public"));
 
 //Configurar body obtener datos HTML
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 //Conexión a la base de datos.
 try {
