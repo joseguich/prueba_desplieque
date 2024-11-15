@@ -15,10 +15,12 @@ import {
   deviceEditView,
   deviceEdit,
 } from "../controllers/deviceControllers.js";
-import multerErrors from "../middleware/multerErrors.js";
+
+import multerErrorsCreate from "../middleware/multerErrorsCreate.js";
+import multerErrorsEdit from "../middleware/multerErrorsEdit.js";
 
 routes.get("/device/create", authRoutes, viewDevice);
-routes.post("/device/create", authRoutes, multerErrors, createDevice);
+routes.post("/device/create", authRoutes, multerErrorsCreate, createDevice);
 
 routes.get("/device/failures", authRoutes, viewFailures);
 routes.post("/device/failures", authRoutes, createDeviceFailures);
@@ -30,6 +32,6 @@ routes.get("/device/received", authRoutes, receivedDeviceView);
 
 routes.get("/device/details/:id", authRoutes, viewDeviceDetails);
 routes.get("/device/edit/:id", authRoutes, deviceEditView);
-routes.post("/device/edit/:id", authRoutes, multerErrors, deviceEdit);
+routes.post("/device/edit/:id", authRoutes, multerErrorsEdit, deviceEdit);
 
 export default routes;

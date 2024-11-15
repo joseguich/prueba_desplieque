@@ -1,6 +1,6 @@
 import multer from "multer";
 import uploads from "./uploadImg.js";
-const multerErrors = (req, res, next) => {
+const multerErrorsCreate = (req, res, next) => {
   try {
     uploads.array("image", 5)(req, res, (err) => {
       if (err) {
@@ -25,4 +25,4 @@ const multerErrors = (req, res, next) => {
   }
 };
 
-export default multerErrors;
+export default multerErrorsCreate;
