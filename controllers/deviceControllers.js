@@ -1,4 +1,6 @@
 import { check, validationResult } from "express-validator";
+import fs from "fs";
+import path from "path";
 import {
   Clients,
   Problemphone,
@@ -9,7 +11,6 @@ import {
 } from "../models/index.js";
 import multer from "multer";
 import EvidenceImage from "../models/EvidenceImage.js";
-import { Op, where } from "sequelize";
 const viewDevice = async (req, res) => {
   try {
     const [clients, brands, models] = await Promise.all([
@@ -208,8 +209,10 @@ const deviceEditView = async (req, res) => {
   }
 };
 
+// Editar dispositivo
 const deviceEdit = async (req, res) => {
   const { id } = req.params;
+  const { deleteImages = [], replaceImages = [] } = req.body;
   console.log(req.body);
   const [clients, brands, models] = await Promise.all([
     Clients.findAll(),
@@ -316,6 +319,22 @@ const deviceEdit = async (req, res) => {
       });
     }
 
+    //Eliminar las imagenes
+    if (deleteImages.length > 0) {
+      const deleteImage = Array.isArray(deleteImages)
+        ? deleteImages
+        : [deleteImages];
+      for (const imageId of deleteImage) {
+        // Obtener las imagenes por ID
+        const image = await EvidenceImage.findByPk(imageId);
+        if (image) {
+          // Obtener la ruta de la imagen
+          fs.unlinkSync(path.resolve(`./public/uploads/${image.imagePath}`));
+          //Eliminar la ruta de la imagen
+          await image.destroy();
+        }
+      }
+    }
     //Actaulizar los datos
     await devices.set({
       client_id,
@@ -329,7 +348,7 @@ const deviceEdit = async (req, res) => {
     await devices.save();
 
     res.render("template/message-admin", {
-      page: "Equipo editado correctamente",
+      page: "Equipo editado",
       message: "Equipo fue editado correctamente",
       edition: true,
     });
