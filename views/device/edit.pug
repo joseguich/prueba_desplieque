@@ -75,11 +75,11 @@ block content
 
                 // Reemplazar Imagen
                 label(for=`replace-image-${image.id}` class="text-sm text-gray-300") Reemplazar imagen
-                input(type="file" name="replaceImages" id=`replace-image-${image.id}` data-image-id=image.id class="text-gray-300 block w-full text-xs" accept="image/*")
+                input(type="file" name= `replaceImages_${image.id}` id=`replace-image-${image.id}` data-image-id=image.id class="text-gray-300 block w-full text-xs" accept="image/*")
 
                 // Eliminar Imagen
-                label(for=`delete-image-${image.id}` class="text-sm text-gray-300 ml-2") Eliminar
-                input(type="checkbox" name="deleteImages" id=`delete-image-${image.id}` value=image.id class="text-red-500")
+                label(for=`delete-image-${image.id}` class="check-label text-sm font-normal cursor-pointer text-gray-400 hover:text-red-700") Eliminar
+                input(type="checkbox" name="deleteImages" id=`delete-image-${image.id}` value=image.id class="w-8 h-5 appearance-none check-input cursor-pointer border border-gray-300  rounded-md mr-2 hover:border-red-300 hover:bg-red-500 checked:bg-no-repeat checked:bg-center checked:border-red-300 checked:bg-red-600 hover:-translate-y-1.5 transition-all duration-300")
           else
             p.text-gray-400 Sin imágenes
 

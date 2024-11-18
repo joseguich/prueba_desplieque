@@ -35,4 +35,13 @@ CategoryFailure.hasMany(Problemphone, {
   foreignKey: "category_id",
 });
 
-export { Clients, User, Device, Problemphone, CategoryFailure, Brand, Models };
+export {
+  Clients,
+  User,
+  Device,
+  Problemphone,
+  CategoryFailure,
+  Brand,
+  Models,
+  EvidenceImage,
+};

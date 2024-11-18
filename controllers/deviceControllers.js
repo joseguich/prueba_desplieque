@@ -11,6 +11,7 @@ import {
 } from "../models/index.js";
 import multer from "multer";
 import EvidenceImage from "../models/EvidenceImage.js";
+import { where } from "sequelize";
 const viewDevice = async (req, res) => {
   try {
     const [clients, brands, models] = await Promise.all([
@@ -212,8 +213,7 @@ const deviceEditView = async (req, res) => {
 // Editar dispositivo
 const deviceEdit = async (req, res) => {
   const { id } = req.params;
-  const { deleteImages = [], replaceImages = [] } = req.body;
-  console.log(req.body);
+  const { deleteImages = [] } = req.body;
   const [clients, brands, models] = await Promise.all([
     Clients.findAll(),
     Brand.findAll({ order: [["name", "ASC"]] }),
@@ -286,6 +286,25 @@ const deviceEdit = async (req, res) => {
       return res.redirect("/device/received");
     }
 
+    //Eliminar las imagenes antes de la validación del multer
+    if (deleteImages.length > 0) {
+      const deleteImageIds = Array.isArray(deleteImages)
+        ? deleteImages
+        : [deleteImages];
+      console.log(deleteImageIds);
+      for (const imageId of deleteImageIds) {
+        // Obtener las imagenes por ID
+        const image = await EvidenceImage.findByPk(imageId);
+        if (image) {
+          // Obtener la ruta de la imagen
+          fs.unlinkSync(path.resolve(`./public/uploads/${image.imagePath}`));
+          //Eliminar la ruta de la imagen
+          await image.destroy();
+        }
+      }
+      return res.redirect(`/device/edit/${devices.id}`);
+    }
+
     // Verficar si hay error en el multer
     if (req.multerError) {
       let errorMessage = "Archivo desconocido al subir la imagen";
@@ -319,19 +338,32 @@ const deviceEdit = async (req, res) => {
       });
     }
 
-    //Eliminar las imagenes
-    if (deleteImages.length > 0) {
-      const deleteImage = Array.isArray(deleteImages)
-        ? deleteImages
-        : [deleteImages];
-      for (const imageId of deleteImage) {
-        // Obtener las imagenes por ID
-        const image = await EvidenceImage.findByPk(imageId);
-        if (image) {
-          // Obtener la ruta de la imagen
-          fs.unlinkSync(path.resolve(`./public/uploads/${image.imagePath}`));
-          //Eliminar la ruta de la imagen
-          await image.destroy();
+    // Reemplazar las imagenes
+    if (req.files) {
+      for (const file of req.files) {
+        // Obtener el nombre del archivo subido
+        const filedName = file.fieldname;
+
+        const match = filedName.match(/replaceImages_(\d+)/);
+
+        if (match) {
+          const imgaeId = parseInt(match[1], 10);
+
+          const image = await EvidenceImage.findByPk(imgaeId);
+          if (image) {
+            // Actulizar la imagenes que esta en el servidor subida
+            fs.unlinkSync(path.resolve(`./public/uploads/${image.imagePath}`));
+
+            // Actualizar
+            await image.update({ imagePath: file.filename });
+          }
+        }
+        if (file.fieldname === "newImages") {
+          // Crear la nueva imagen
+          await EvidenceImage.create({
+            device_id: devices.id,
+            imagePath: file.filename,
+          });
         }
       }
     }

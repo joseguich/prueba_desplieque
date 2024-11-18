@@ -27,9 +27,6 @@ const uploadsEditImage = multer({
       cb(new Error("Por favor, sube un archivo de imagen"));
     }
   },
-}).fields([
-  { name: "newImages", maxCount: 5 },
-  { name: "replaceImages", maxCount: 5 },
-]);
+}).any();
 
 export default uploadsEditImage;

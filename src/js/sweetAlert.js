@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const cancelarBtnCreate = document.querySelector("#cancelar-create");
   const cancelarBtnEdit = document.querySelector("#cancelar-edit");
   const cancelarBtnDevice = document.querySelector("#cancelar-device-edit");
-  console.log(cancelarBtnDevice);
   const deleteForms = document.querySelectorAll(".delete-form");
 
   // Sweet Alert editar
