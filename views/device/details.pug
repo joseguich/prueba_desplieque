@@ -28,16 +28,16 @@ block content
         div(class="swiper-scrollbar")
 
       //- Información del dispositivo
-      div(class="text-white mt-4 space-y-4 mx-2 font-[PatuaOne]")
-        div(class="py-4 cursor-pointer ")
+      div(class="text-white space-y-4  font-[PatuaOne]")
+        div(class="cursor-cell ")
           if devices.status === "Recibido"
-            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-indigo-400 rounded-lg")= devices.status
+            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-indigo-400 rounded")= devices.status
           else if devices.status === "Despachado"
-            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-green-600 rounded-lg")= devices.status
+            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-green-600 rounded")= devices.status
           else if devices.status === "Listo para Entregar"
-            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-blue-600 rounded-lg")= devices.status
+            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-blue-600 rounded")= devices.status
           else if devices.status === "En Reparación"
-            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-violet-700 rounded-lg")= devices.status
+            p(class="py-2 text-center text-sm md:text-lg text-white font-bold bg-violet-700 rounded")= devices.status
         h3(class=" text-3xl text-center mb-2 font-bold")= devices.model.name
         div(class="border-b-4 border-gray-800 w-full")
         div(class="grid grid-cols-1 md:grid-cols-2 space-y-4 md:gap-6 md:space-y-0")
@@ -56,8 +56,8 @@ block content
             textArea(id="description" class="w-full  md:text-base text-sm bg-gray-800 p-2 rounded-lg outline-none" disabled)= devices.description ? devices.description : "No hay descripción"
 
         div
-            a(href="#" class="inline-block w-full bg-red-700 text-white text-lg text-center uppercase mb-2 py-2 md:py-4 rounded-md hover:bg-indigo-600 hover:scale-95 focus:ring-2 transition-all duration-300 ease-in-out") Enviar a reparación 
-        
+          a(href="#" class="font-[Poppins] inline-block w-full bg-red-700 text-white text-base text-center uppercase py-1 rounded hover:bg-indigo-600 hover:scale-95 shadow-md hover:shadow-gray-400 focus:ring-2 transition-all duration-300 ease-in-out") Enviar a reparación 
+
 
     if errors
       div(class="bg-red-500 text-white p-4 rounded-lg mt-10")

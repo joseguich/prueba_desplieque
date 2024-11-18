@@ -4,12 +4,12 @@ block content
 
   div.mt-32.max-w-4xl.mx-auto(data-aos="fade-right")
     h3(class="text-2xl py-2 font-bold text-center text-white")=page 
-      p(class= " bg-green-600 text-center text-white rounded-lg my-5 p-2 ")=message
+    p(class= "bg-green-600 font-bold text-lg text-center text-white rounded-lg my-5 p-2 ")=message
 
     if panel
-      a(class= "block hover:bg-gray-700 text-white w-1/2 mx-auto rounded-lg my-5 p-3 text-center hover:outline hover:outline-offset-2 font-bold hover:outline-2 hover:scale-90 outline-red-500 shadow-lg transition-all duration-300 " href="/client/panel") Volver al Panel de Clientes
+      a(class= "block hover:bg-gray-700 text-white md:w-1/2 mx-auto rounded-lg my-5 p-3 text-center hover:outline hover:outline-offset-2 font-bold hover:outline-2 hover:scale-90 outline-red-500 shadow-lg transition-all duration-300 " href="/client/panel") Volver al Panel de Clientes
 
     if edition
-      a(class= "block hover:bg-gray-700 text-white w-1/2 mx-auto rounded-lg my-5 p-3 text-center hover:outline hover:outline-offset-2 font-bold hover:outline-2 hover:scale-90 outline-red-500 shadow-lg transition-all duration-300 " href="/device/received") Volver a la página de equipos
+      a(class= "block hover:bg-gray-700 text-white md:w-1/2 mx-auto rounded-lg my-5 p-3 text-center hover:outline hover:outline-offset-2 text-base font-bold hover:outline-2 hover:scale-90 outline-red-500 shadow-lg transition-all duration-300" href="/device/received") Volver a la página de equipos
 
     a(class= "block hover:bg-gray-700 text-white w-1/2 mx-auto rounded-lg my-5 p-3 text-center hover:outline hover:outline-offset-2 font-bold hover:outline-2 hover:scale-90 outline-red-500 shadow-lg transition-all duration-300 " href="/device/create") Crear Equipo

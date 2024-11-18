@@ -381,7 +381,7 @@ const deviceEdit = async (req, res) => {
 
     res.render("template/message-admin", {
       page: "Equipo editado",
-      message: "Equipo fue editado correctamente",
+      message: "El equipo fue editado correctamente",
       edition: true,
     });
   } catch (error) {
@@ -530,10 +530,12 @@ const receivedDeviceView = async (req, res) => {
           where: { id: searchClientId },
         },
       ],
+      order: [["id", "DESC"]],
     };
 
     // Obtener los datos
     const devices = await Device.findAll(queryOption);
+    console.log(devices);
 
     if (devices.length === 0) {
       return res.render("device/received", {

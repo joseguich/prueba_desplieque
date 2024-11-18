@@ -42,6 +42,15 @@ block content
                   g(fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2")
                     path(stroke="#fff" d="m28.708 27.188l-5.791-.105v-5.791L36.312 7.896a2.083 2.083 0 0 1 2.938 0l2.958 2.958a2.083 2.083 0 0 1 0 2.938z")
                     path(stroke="#306cfe" d="M43.75 25A18.75 18.75 0 1 1 25 6.25")
+            div(class='w-full')
+              if device.status === "Recibido"
+                p(class="text-center text-sm md:text-lg bg-indigo-400 p-1 text-center font-bold rounded")= device.status
+              else if device.status === "Despachado"
+                p(class="p-1 text-center text-sm md:text-lg text-white font-bold bg-green-600 rounded")= device.status
+              else if device.status === "Listo para Entregar"
+                p(class="p-1 text-center text-sm md:text-lg text-white font-bold bg-blue-600 rounded")= device.status
+              else if device.status === "En Reparación"
+                p(class="p-1 text-center text-sm md:text-lg text-white font-bold bg-violet-700 rounded")= device.status
     if error
       div(class="text-red-600 font-bold text-sm errors")=error
 
