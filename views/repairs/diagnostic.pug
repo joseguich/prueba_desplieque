@@ -1,0 +1,32 @@
+extends ../layouts/admin
+
+block styles
+  link(href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet")
+
+block content
+  div(class="max-w-4xl mx-auto")
+    h2(class="text-center text-white text-3xl font-bold")= page
+    div(class="bg-gray-800 px-8 pt-4 mt-10 rounded-lg shadow-lg")
+      from(action="" method="" class="grid grid-rows-auto gap-5")
+        div(class="mb-2")
+          label(for="diagnosis" class="block text-gray-300 font-bold mb-2") Diagnóstico Inicial
+          textarea(name="diagnosis" id="diagnosis" rows="4" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600" placeholder="Describe el problema identificado..." disabled)
+
+        div(class="mb-2")
+          label(for="tasks" class="block text-gray-300 font-bold mb-2") Piezas requeridas
+          textarea(name="tasks" id="tasks" rows="4" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600" placeholder="Describe las tareas a realizar...")
+        div(class="grid grid-cols-2 gap-4 mb-2")
+          div(class="mb-2")
+            label(for="estimated_cost" class="block text-gray-300 font-bold mb-2") Costo Estimado
+            input(type="number" name="estimated_cost" id="estimated_cost" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600" placeholder="Ingrese el costo estimado")
+          div(class="mb-2")
+            label(for="delivery_date" class="block text-gray-300 font-bold mb-2") Fecha Estimada de Entrega
+
+            div(class="relative max-w-sm")
+              div(class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none")
+                svg(class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20")
+                  path(d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z")
+              input(datepicker type="text" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Selecionar fecha")
+
+
+
