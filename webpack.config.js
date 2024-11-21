@@ -11,6 +11,7 @@ export default {
     spinner: "./src/js/spinner.js",
     inputs: "./src/js/inputs.js",
     swiper: "./src/js/swiper.js",
+    datePicker: "./src/js/datePicker.js",
   },
   output: {
     filename: "[name].js",

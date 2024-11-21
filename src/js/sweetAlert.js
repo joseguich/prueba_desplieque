@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const cancelarBtnCreate = document.querySelector("#cancelar-create");
   const cancelarBtnEdit = document.querySelector("#cancelar-edit");
   const cancelarBtnDevice = document.querySelector("#cancelar-device-edit");
+  const cancelarBtnDiagnostic = document.querySelector("#cancelar-diagnostic");
   const deleteForms = document.querySelectorAll(".delete-form");
 
   // Sweet Alert editar
@@ -95,6 +96,17 @@ document.addEventListener("DOMContentLoaded", function () {
         "Edición",
         "Cancelar",
         "Modificando fue cancelada",
+        "/device/received"
+      );
+    });
+  }
+
+  if (cancelarBtnDiagnostic) {
+    cancelarBtnDiagnostic.addEventListener("click", () => {
+      sweetAlertEdit(
+        "Enviar a Reparación",
+        "Cancelar",
+        "Enviar a reparación fue cancelado",
         "/device/received"
       );
     });
