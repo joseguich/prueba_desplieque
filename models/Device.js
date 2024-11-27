@@ -13,6 +13,7 @@ const Device = db.define("devices", {
   status: {
     type: DataTypes.ENUM(
       "Recibido",
+      "Para Reparar",
       "En Reparación",
       "Listo para Entregar",
       "Despachado"
