@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Crear Pieza</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-gray-900 text-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-center text-white text-xl md:text-3xl font-bold">{{ page }}</h2>
+            <div class="bg-gray-800 px-8 pt-4 mt-10 rounded-lg shadow-lg">
+                <form action="/parts/create" method="POST" class="grid grid-rows-auto gap-5">
+                    <div class="mb-2">
+                        <label for="name" class="block text-gray-300 font-bold mb-2">Nombre de la Pieza</label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600"
+                            placeholder="Ejemplo: Pantalla LCD"
+                        >
+                        <!-- Mostrar errores si existen -->
+                        {% if errors && errors.name %}
+                        <p class="text-red-500 text-xs mt-1">{{ errors.name.msg }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="mb-2">
+                        <label for="price" class="block text-gray-300 font-bold mb-2">Precio de la Pieza</label>
+                        <input
+                            type="number"
+                            name="price"
+                            id="price"
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600"
+                            placeholder="Ejemplo: 2500.00"
+                        >
+                        <!-- Mostrar errores si existen -->
+                        {% if errors && errors.price %}
+                        <p class="text-red-500 text-xs mt-1">{{ errors.price.msg }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="mb-2">
+                        <label for="description" class="block text-gray-300 font-bold mb-2">Descripción (Opcional)</label>
+                        <textarea
+                            name="description"
+                            id="description"
+                            rows="4"
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-2 text-sm focus:ring-red-600"
+                            placeholder="Descripción de la pieza..."
+                        ></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <button type="button" id="cancelar-part" class="w-full cursor-pointer font-bold bg-red-600 hover:bg-red-800 text-gray-300 text-sm md:text-xl p-[7px] rounded-lg shadow-lg hover:shadow-gray-600 hover:scale-90 transition-all duration-300">Cancelar</button>
+                        <input type="submit" class="w-full cursor-pointer font-bold bg-gray-700 hover:bg-indigo-700 text-gray-300 text-sm md:text-xl rounded-lg shadow-lg hover:shadow-gray-700 hover:scale-90 p-[10px] transition-all duration-300" value="Guardar Pieza">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
