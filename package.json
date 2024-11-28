@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "server": "node --watch ./index.js ",
+    "start": "node ./index.js",
     "css": "npx tailwindcss -i public/css/tailwind.css -o public/css/app.css --watch",
     "js": "webpack --watch",
     "dev": "concurrently \"npm run css\" \"npm run js\" ",
